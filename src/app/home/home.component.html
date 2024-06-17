@@ -1,0 +1,82 @@
+<body>
+    <div class="main">
+        <div class="info">
+            <div class="text">
+                <h1>Haciendo de la <b><i>visión</i></b> una <b><i>realidad</i></b> digital</h1>
+                <p>Desde aplicaciones web intuitivas hasta soluciones de software a medida, 
+                    soy capaz de convertir las ideas en productos funcionales y exitosos.
+                </p>
+            </div>
+            <div class="buttons">
+                <button class="contact-button">Contáctame</button>
+                <a href="https://www.linkedin.com/" target="_blank" class="boton-social">
+                    <i class="fab fa-linkedin"></i> LinkedIn
+                </a>
+                <a href="https://github.com/" target="_blank" class="boton-social">
+                    <i class="fab fa-github"></i> GitHub
+                </a>
+            </div>
+        </div>
+        <div class="image-general"></div>
+    </div>
+    <div class="about">
+        <div class="about-main">
+            <div class="info"> 
+                <div class="text">
+                    <h1><b><i>Sobre mí</i></b></h1>
+                    <p>¡Hola! Soy Eduardo Ortega Zerpa, ingeniero informático con experiencia en gestión de bases de datos, 
+                        administración de sistemas y redes, y producción de software, especialmente en programación web. 
+                        Con pasión por la tecnología y un enfoque meticuloso, soy capaz de llevar los proyectos al siguiente nivel.
+                    </p>
+                </div>
+            </div>
+            <div class="image-about"></div>
+        </div>
+
+        <div class="cards">
+            <app-card iconClass="fab fa-python" title="Python" description="Desarrollo de algoritmos basados en árboles a través de técnicas como backtracking, branch & bound."></app-card>
+            <app-card iconClass="fab fa-java" title="Java" description="Construcción de estructuras de datos y software orientado a empresas."></app-card>
+            <app-card iconClass="fab fa-js" title="JavaScript" description="Desarrollo de páginas web en AngularJS y React."></app-card>
+            <app-card iconClass="fas fa-database" title="SQL" description="Conocimientos avanzados en gestión de bases de datos y manejo de API."></app-card>
+        </div>
+
+    </div>
+    <div class="about">
+        <div class="personal-info-container">
+            <div class="personal-info" *ngFor="let info of personalInfos; let i = index"
+                 [class.active]="i === activeIndex"
+                 (mouseenter)="setActive(i)"
+                 (mouseleave)="resetActive()">
+                <h2>{{ info.title }}</h2>
+                <p><span class="text-content">{{ info.content }}</span></p>
+            </div>
+        </div>
+    </div>        
+    <div class="blog">
+        <h2>Último Post</h2>
+        <div class="blog-info">
+            <div class="blog-image"></div>
+            <div class="blog-content">
+                <div class="blog-header">
+                    <div class="tags">
+                        <p>#java</p>
+                        <p>#tree</p>
+                    </div>
+                    <div class="hightlight">
+                        <p>Destacado</p>
+                    </div>
+                </div>
+                <div class="blog-title">
+                    <h3>Implementación de árboles binarios en Java</h3>
+                </div>
+                <div class="blog-basic-info">
+                    <p>15 min de lectura - JUN 31, 2024</p>
+                </div>
+                <div class="blog-description">
+                    Descubre cómo construir una estructura árborea en Java: desde la definición de nodos hasta la implementación de métodos clave. 
+                    ¡Aprende cómo organizar datos de manera jerárquica de manera eficiente! 🌳
+                </div>
+            </div>
+        </div>
+    </div>
+</body>

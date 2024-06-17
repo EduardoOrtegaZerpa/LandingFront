@@ -1,0 +1,39 @@
+.card {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    background-color: white;
+    color: #12264D;
+    padding: 20px;
+    transition: transform 0.3s ease;
+    min-height: 150px;
+}
+
+.card p{
+    text-align: center;
+    margin: auto auto;
+    color: #12264D;
+    font-size: large;
+}
+  
+.card.hovered {
+    transform: scale(1.1);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+  
+.title {
+    margin-bottom: 10px;
+}
+
+.title-text {
+    display: flex;
+    gap: 6px;
+    color: #12264D;
+    align-items: center;
+}
+  
+.title-text i {
+    margin-right: 5px;
+    font-size: xx-large;
+}
+  

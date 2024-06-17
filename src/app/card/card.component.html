@@ -1,0 +1,7 @@
+<div class="card" [class.hovered]="isHovered" (mouseover)="toggleHover()" (mouseout)="toggleHover()">
+    <div class="title">
+      <p class="title-text"><i [class]="iconClass"></i> <b>{{ title }}</b></p>
+    </div>
+    <p><b>{{ description }}</b></p>
+</div>
+  

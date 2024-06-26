@@ -1,0 +1,72 @@
+:host{
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+
+.blog {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    padding: 40px 40px;
+}
+
+h1{
+    font-size: 5em;
+    font-weight: 700;
+    color: white;
+}
+
+.main {
+    display: flex;
+    flex-direction: column;
+    background-color: rgba(0, 0, 0, 0.6);
+    padding: 60px 80px;
+    gap: 40px;
+    border-radius: 25px;
+}
+
+.utilities{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.filters{
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+h2{
+    font-size: 1em;
+    font-weight: 700;
+    color: white;
+}
+
+.filters-buttons{
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+}
+
+.filter{
+    background-color: rgba(255, 255, 255, 0.15);
+    padding: 15px;
+    border-radius: 25px;
+    color: white;
+    cursor: pointer;
+}
+
+.searching-bar{
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.searching-bar input{
+    background-color: rgba(255, 255, 255, 0.15);
+    padding: 15px;
+    border-radius: 25px;
+    color: white;
+}

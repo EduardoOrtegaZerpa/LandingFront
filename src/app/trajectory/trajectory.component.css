@@ -1,0 +1,18 @@
+:host{
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+
+.trajectory {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    padding: 40px 80px;
+}
+
+h1{
+    font-size: 5em;
+    font-weight: 700;
+    color: white;
+}

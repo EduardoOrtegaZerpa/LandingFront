@@ -1,0 +1,131 @@
+:host{
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+
+.contact {
+    display: flex;
+    flex: 1;
+    padding: 40px 80px;
+    justify-content: space-between;
+    align-items: center;
+    gap: 100px;
+    background-color: rgba(0, 0, 0, 0.3);
+}
+
+.image {
+    display: flex;
+    justify-content: center;
+    height: 50vh;
+    flex: 1;
+}
+
+.line-with-text {
+    display: flex;
+    align-items: center;
+    text-align: center;
+    margin: 20px 0;
+}
+  
+.line-with-text::before,
+.line-with-text::after {
+    content: '';
+    flex: 1;
+    border-bottom: 1px solid white;
+}
+  
+.line-with-text::before {
+    margin-right: 10px;
+}
+  
+.line-with-text::after {
+    margin-left: 10px;
+}
+  
+.line-with-text span {
+    padding: 0 10px;
+    font-size: 16px;
+    color: white;
+}
+
+.option {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+}
+
+.info{
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    gap: 20px;
+}
+
+h1 {
+    font-size: 3em;
+    font-weight: 700;
+    color: white;
+}
+
+h2 {
+    font-size: 2em;
+    font-weight: 700;
+    color: white;
+}
+
+h3 { 
+    font-size: 1.5em;
+    color: white;
+}
+
+.general-info {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.inputs{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.input{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+label {
+    font-size: 1.3em;
+    color: white;
+}
+
+input {
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    background-color: transparent;
+    color: white;
+    border: 1px solid white;
+}
+
+input::placeholder {
+    color: #FAFAFA;
+}
+
+textarea {
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    background-color: transparent;
+    color: white;
+    border: 1px solid white;
+    min-height: 100px;
+}
+
+textarea::placeholder {
+    color: #FAFAFA;
+}
+  

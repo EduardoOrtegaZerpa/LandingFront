@@ -4,11 +4,11 @@
       <form [formGroup]="loginForm" (ngSubmit)="login()">
         <div class="inputs">
           <div class="input-container">
-            <label for="email">Email</label>
-            <input type="email" id="email" formControlName="email" placeholder="Enter your email...">
-            <div *ngIf="email?.invalid && (email?.dirty || email?.touched)" class="error">
-              <div *ngIf="email?.errors?.['required']">Email is required.</div>
-              <div *ngIf="email?.errors?.['email']">Invalid email format.</div>
+            <label for="username">Username</label>
+            <input type="username" id="username" formControlName="username" placeholder="Enter your username...">
+            <div *ngIf="username?.invalid && (username?.dirty || username?.touched)" class="error">
+              <div *ngIf="username?.errors?.['required']">Username is required.</div>
+              <div *ngIf="username?.errors?.['email']">Invalid username format.</div>
             </div>
           </div>
           <div class="input-container">

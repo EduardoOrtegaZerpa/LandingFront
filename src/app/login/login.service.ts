@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, Observable, catchError, map, of } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -13,13 +13,22 @@ export class LoginService {
 
   private loginStatusSubject = new BehaviorSubject<boolean>(false);
 
-  login(credentials: {email: string, password: string}) {
-    return this.http.post('http://localhost:3000/login', credentials).subscribe((response: any) => {
-      if (response.token) {
-        localStorage.setItem('token', response.token);
-        this.loginStatusSubject.next(true);
-      }
-    });
+  login(credentials: {username: string, password: string}): Observable<boolean> {
+
+    console.log(credentials);
+    return this.http.post('http://localhost:8080/login', credentials).pipe(
+      map((response: any) => {
+        if (response && response.token) {
+          localStorage.setItem('token', response.token);
+          this.loginStatusSubject.next(true);
+          return true;
+        }
+        return false;
+      }),
+      catchError(() => {
+        return of(false);
+      })
+    );
   }
 
   logout() {

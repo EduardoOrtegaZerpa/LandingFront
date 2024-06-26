@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { LoginService } from './login.service';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { BrowserModule } from '@angular/platform-browser';
 import { CommonModule } from '@angular/common';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -16,24 +16,33 @@ export class LoginComponent {
 
   loginForm: FormGroup;
 
-  constructor(private fb: FormBuilder, private loginService: LoginService) {
+  constructor(private fb: FormBuilder, private loginService: LoginService, private router: Router) {
     this.loginForm = this.fb.group({
-      email: ['', [Validators.required, Validators.email]],
+      username: ['', Validators.required],
       password: ['', Validators.required]
     });
   }
 
-  get email() {
-    return this.loginForm.get('email');
+  get username() {
+    return this.loginForm.get('username');
   }
 
   get password() {
     return this.loginForm.get('password');
   }
 
-
-
   login() {
-    this.loginService.login(this.loginForm.value);
+    this.loginService.login(this.loginForm.value).subscribe((response) => {
+      if (response) {
+        this.resetInputs();
+        this.router.navigate(['/']);
+      } else {
+        this.resetInputs();
+      }
+    });
+  }
+
+  resetInputs() {
+    this.loginForm.reset();
   }
 }

@@ -5,6 +5,7 @@
       <li><a routerLink="/portafolio">Portafolio</a></li>
       <li><a routerLink="/blog">Blog</a></li>
       <li><a routerLink="/trajectory">Recorrido</a></li>
+      <li *ngIf="loggedIn"><a routerLink="/admin">Admin</a></li>
     </ul>
   </nav>
 </header>

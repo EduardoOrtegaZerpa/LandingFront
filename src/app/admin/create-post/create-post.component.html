@@ -1,0 +1,67 @@
+<div class="create">
+    <h1>Create Post</h1>
+    <form (ngSubmit)="createPost()" [formGroup]="createForm">
+        <div class="form-group">
+
+            <div class="form-option">
+                <div class="form-option-content">
+                    <label for="title">Title</label>
+                    <input type="text" class="form-control" id="title" name="title" formControlName="title" required>
+                </div>
+                <div *ngIf="createForm.controls['title'].invalid && (createForm.controls['title'].dirty || createForm.controls['title'].touched)" class="error">
+                    <small class="text-danger">Title is required.</small>
+                </div>
+            </div>
+
+            <div class="form-option">
+                <div class="form-option-content-textarea">
+                    <label for="description">Description</label>
+                    <textarea class="form-control" id="description" name="description" formControlName="description" required></textarea>
+                </div>
+                <div *ngIf="createForm.controls['description'].invalid && (createForm.controls['description'].dirty || createForm.controls['description'].touched)" class="error">
+                    <small class="text-danger">Description is required.</small>
+                </div>
+            </div>
+
+            <div class="form-option">
+                <div class="form-option-content-textarea">
+                    <label for="content">Content</label>
+                    <editor #tinyMCE apiKey="8445f04lcsrakslpwg46kua83mjz0wbtoj8ma608dzh9pry5" formControlName="content"   [init]="{
+                        plugins: 'lists link image paste help wordcount',
+                        toolbar: 'undo redo | blocks | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | help'
+                      }"></editor>
+                </div>  
+                <div *ngIf="createForm.controls['content'].invalid && (createForm.controls['content'].dirty || createForm.controls['content'].touched)" class="error">
+                    <small class="text-danger">Content is required.</small>
+                </div>
+            </div>
+
+            <div class="form-option">
+                <div class="form-option-content">
+                  <label for="image">Image</label>
+                  <div class="file-input-container">
+                    <label for="image" class="file-label" [ngClass]="{'selected': imageSelected?.name}">
+                      {{ imageSelected ? imageSelected.name : 'Seleccionar archivo' }}
+                    </label>
+                    <input type="file" class="file-input form-control" id="image" name="image" (change)="onFileSelected($event)" formControlName="image" required>
+                  </div>
+                </div>
+                <div *ngIf="createForm.controls['image'].invalid && (createForm.controls['image'].dirty || createForm.controls['image'].touched)" class="error">
+                  <small class="text-danger">{{ errorMessage ? errorMessage : 'Image is required.' }}</small>
+                </div>
+              </div>
+
+            <div class="form-option">
+                <div class="form-option-content">
+                    <label for="minutesToRead">Minutes to Read</label>
+                    <input type="number" class="form-control" id="minutesToRead" name="minutesToRead" formControlName="minutesToRead" required>
+                </div>
+                <div *ngIf="createForm.controls['minutesToRead'].invalid && (createForm.controls['minutesToRead'].dirty || createForm.controls['minutesToRead'].touched)" class="error">
+                    <small class="text-danger">Minutes to Read is required.</small>
+                </div>
+            </div>
+
+            <button type="submit" [disabled]="createForm.invalid">Submit</button>
+        </div>
+    </form>
+</div>

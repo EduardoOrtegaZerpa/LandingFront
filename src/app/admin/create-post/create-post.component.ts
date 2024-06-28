@@ -1,23 +1,29 @@
 import { CommonModule } from '@angular/common';
-import { AfterViewInit, Component, ViewChild, viewChild} from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { EditorModule } from '@tinymce/tinymce-angular';
+import { EditorComponent } from '../../editor/editor.component';
+
+
+
 
 @Component({
   selector: 'app-create-post',
   standalone: true,
-  imports: [ReactiveFormsModule, CommonModule, EditorModule],
+  imports: [ReactiveFormsModule, CommonModule, EditorComponent],
   templateUrl: './create-post.component.html',
   styleUrl: './create-post.component.css'
 })
 export class CreatePostComponent{
 
   createForm: FormGroup;
-  @ViewChild('tinyMCE') tinyMCE: any;
+
+
+  @ViewChild(EditorComponent) editor!: EditorComponent;
   imageSelected: File | undefined;
   errorMessage: string | null = null;
 
-  constructor (private fb: FormBuilder) {
+
+  constructor (private fb: FormBuilder, private changeDetectorRef: ChangeDetectorRef) {
     this.createForm = this.fb.group({
       title: ['', Validators.required],
       description: ['', Validators.required],
@@ -26,6 +32,13 @@ export class CreatePostComponent{
       minutesToRead: ['', Validators.required]
     });
   }
+
+  // ngAfterViewInit(): void {
+  //   setTimeout(() => {
+  //     this.setInitialContent();
+  //     this.changeDetectorRef.detectChanges();
+  //   }, 0);
+  // }
 
   onFileSelected(event: any): void {
     const file: File = event.target.files[0];
@@ -39,6 +52,14 @@ export class CreatePostComponent{
     }
   }
 
+  // setInitialContent(): void {
+  //   const initialContent = '<p>Contenido inicial</p>';
+  //   this.createForm.patchValue({ content: initialContent });
+  //   if (this.editor) {
+  //     this.editor.writeValue(initialContent); // Actualiza el contenido del editor
+  //   }
+  // }
+
   isImageFile(file: File): boolean {
     return file.type.startsWith('image/');
   }
@@ -50,14 +71,14 @@ export class CreatePostComponent{
     return undefined;
   }
 
-
-  createPost() {
-    const editorContent = this.tinyMCE.editor.getContent();
-    console.log(editorContent);
+  onEditorContentChange(content: string): void {
+    this.createForm.patchValue({ content });
   }
 
 
-
-
+  createPost() {
+    const editorContent = this.editor.editorInstance.getData();
+    console.log(editorContent);
+  }
 
 }

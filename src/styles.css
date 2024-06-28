@@ -118,3 +118,15 @@ body { margin: 0; font-family: 'Arimo', sans-serif; background: linear-gradient(
     scrollbar-color: #00BCBC #00524d;
     scrollbar-width: thin;
 }
+
+.ckeditor-container * {
+    margin: revert;
+    padding: revert;
+    border: revert;
+    font-size: revert;
+    font-family: revert;
+    vertical-align: revert;
+    font-weight: revert;
+    list-style: revert;
+}
+

@@ -10,5 +10,19 @@ import { RouterModule } from '@angular/router';
   styleUrl: './admin.component.css'
 })
 export class AdminComponent {
-  
+
+
+  public static imageChecker(file: File): boolean {
+    if (file && this.isImageFile(file)) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  public static isImageFile(file: File): boolean {
+    return file.type.startsWith('image/');
+  }
+
+
 }

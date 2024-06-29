@@ -19,9 +19,12 @@ export const provideTranslation = () => ({
 
 
 import { routes } from './app.routes';
+import { AuthInterceptorProvider, ResponseInterceptorProvider } from './auth.interceptor';
 
 export const appConfig: ApplicationConfig = {
   providers: [
+    AuthInterceptorProvider,
+    ResponseInterceptorProvider,
     provideZoneChangeDetection({ eventCoalescing: true }), 
     provideRouter(routes),
     provideHttpClient(withFetch()),

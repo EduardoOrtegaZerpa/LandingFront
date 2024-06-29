@@ -2,28 +2,28 @@ import { CommonModule } from '@angular/common';
 import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { EditorComponent } from '../../editor/editor.component';
-
+import { AdminComponent } from '../admin.component';
+import { AdminService } from '../admin.service';
+import { Post } from '../../../interfaces/interfaces';
 
 
 
 @Component({
   selector: 'app-create-post',
   standalone: true,
-  imports: [ReactiveFormsModule, CommonModule, EditorComponent],
+  imports: [ReactiveFormsModule, CommonModule, EditorComponent, AdminComponent],
   templateUrl: './create-post.component.html',
   styleUrl: './create-post.component.css'
 })
 export class CreatePostComponent{
 
   createForm: FormGroup;
-
-
   @ViewChild(EditorComponent) editor!: EditorComponent;
   imageSelected: File | undefined;
   errorMessage: string | null = null;
 
 
-  constructor (private fb: FormBuilder, private changeDetectorRef: ChangeDetectorRef) {
+  constructor (private fb: FormBuilder, private changeDetectorRef: ChangeDetectorRef, private adminService: AdminService) {
     this.createForm = this.fb.group({
       title: ['', Validators.required],
       description: ['', Validators.required],
@@ -40,16 +40,17 @@ export class CreatePostComponent{
   //   }, 0);
   // }
 
-  onFileSelected(event: any): void {
-    const file: File = event.target.files[0];
-    if (file && this.isImageFile(file)) {
+  onFileSelected(event: Event) {
+    const target = event.target as HTMLInputElement;
+    const file: File = (target.files as FileList)[0];
+    if (AdminComponent.imageChecker(file)) {
       this.imageSelected = file;
       this.errorMessage = null;
     } else {
       this.imageSelected = undefined;
       this.createForm.patchValue({ image: '' });
-      this.errorMessage = 'Por favor, seleccione un archivo de imagen válido.';
-    }
+      this.errorMessage = 'Please select an image file';
+    } 
   }
 
   // setInitialContent(): void {
@@ -60,25 +61,33 @@ export class CreatePostComponent{
   //   }
   // }
 
-  isImageFile(file: File): boolean {
-    return file.type.startsWith('image/');
-  }
-
-  getImageUrl(): string | undefined {
-    if (this.imageSelected) {
-        return URL.createObjectURL(this.imageSelected);
-    }
-    return undefined;
-  }
-
   onEditorContentChange(content: string): void {
     this.createForm.patchValue({ content });
   }
 
-
   createPost() {
     const editorContent = this.editor.editorInstance.getData();
-    console.log(editorContent);
+
+    if (this.imageSelected === undefined) {
+      this.errorMessage = 'Please select an image file';
+      return;
+    }
+
+    const post: Post = {
+      title: this.createForm.value.title,
+      description: this.createForm.value.description,
+      content: editorContent,
+      image: this.imageSelected,
+      minutesToRead: this.createForm.value.minutesToRead
+    };
+
+    this.adminService.createPost(post).subscribe((response) => {
+      if (response) {
+        console.log('Post created:', response);
+      } else {
+        console.error('Error creating post');
+      }
+    });
   }
 
 }

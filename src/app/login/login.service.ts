@@ -36,9 +36,11 @@ export class LoginService {
     this.loginStatusSubject.next(false);
   }
 
+  getToken(): string | null {
+    return localStorage.getItem('token');
+  }
+
   loginStatus$(): Observable<boolean> {
     return this.loginStatusSubject.asObservable();
   }
-
-
 }

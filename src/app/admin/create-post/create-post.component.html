@@ -26,10 +26,6 @@
             <div class="form-option">
                 <div class="form-option-content-textarea">
                     <label for="content">Content</label>
-                    <!-- <editor #editor apiKey="8445f04lcsrakslpwg46kua83mjz0wbtoj8ma608dzh9pry5" formControlName="content" [init]="{
-                        plugins: 'lists link image help wordcount',
-                        toolbar: 'undo redo | blocks | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | help'
-                      }"></editor> -->
                       <app-editor #editor formControlName="content" (contentChange)="onEditorContentChange($event)"></app-editor>
                 </div>  
                 <div *ngIf="createForm.controls['content'].invalid && (createForm.controls['content'].dirty || createForm.controls['content'].touched)" class="error">

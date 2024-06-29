@@ -104,8 +104,5 @@
 .ckeditor-container * {
     scrollbar-color: initial;
     scrollbar-width: initial;
-}
-
-li {
-	list-style-type: decimal;
+	list-style: revert;
 }

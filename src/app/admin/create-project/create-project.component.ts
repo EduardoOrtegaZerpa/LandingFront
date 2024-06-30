@@ -11,7 +11,7 @@ import { AdminService } from '../admin.service';
   standalone: true,
   imports: [ReactiveFormsModule, CommonModule, EditorComponent],
   templateUrl: './create-project.component.html',
-  styleUrl: './create-project.component.css'
+  styleUrls: ['./create-project.component.css', '../admin-child.css']
 })
 export class CreateProjectComponent {
 
@@ -71,6 +71,10 @@ export class CreateProjectComponent {
     this.adminService.createProject(project).subscribe((response) => {
       if (!response) {
         console.error('Error creating project');
+      }else{
+        this.createForm.reset();
+        this.imageSelected = undefined;
+        this.errorMessage = null;
       }
     });
   }

@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, OnInit, ViewChild} from '@angular/core';
+import { ChangeDetectorRef, Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { EditorComponent } from '../../editor/editor.component';
 import { AdminComponent } from '../admin.component';
@@ -13,7 +13,7 @@ import { Post } from '../../../interfaces/interfaces';
   standalone: true,
   imports: [ReactiveFormsModule, CommonModule, EditorComponent, AdminComponent],
   templateUrl: './create-post.component.html',
-  styleUrl: './create-post.component.css'
+  styleUrls: ['./create-post.component.css', '../admin-child.css'] 
 })
 export class CreatePostComponent{
 
@@ -75,6 +75,10 @@ export class CreatePostComponent{
     this.adminService.createPost(post).subscribe((response) => {
       if (!response) {
         console.error('Error creating post');
+      }else{
+        this.createForm.reset();
+        this.imageSelected = undefined;
+        this.errorMessage = null;
       }
     });
   }

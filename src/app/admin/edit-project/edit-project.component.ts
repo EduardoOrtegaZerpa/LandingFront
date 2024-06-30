@@ -1,5 +1,5 @@
-import { ChangeDetectorRef, Component, ViewChild } from '@angular/core';
-import { Post, PostResponse, Project, ProjectResponse } from '../../../interfaces/interfaces';
+import { AfterViewInit, ChangeDetectorRef, Component, ViewChild } from '@angular/core';
+import { Project, ProjectResponse } from '../../../interfaces/interfaces';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { EditorComponent } from '../../editor/editor.component';
 import { AdminService } from '../admin.service';
@@ -12,9 +12,9 @@ import { lastValueFrom } from 'rxjs';
   standalone: true,
   imports: [ReactiveFormsModule, CommonModule, EditorComponent, AdminComponent, FormsModule],
   templateUrl: './edit-project.component.html',
-  styleUrl: './edit-project.component.css'
+  styleUrls: ['./edit-project.component.css', '../admin-child.css']
 })
-export class EditProjectComponent {
+export class EditProjectComponent implements AfterViewInit{
 
   projects: ProjectResponse[] = [];
   selectedProject: ProjectResponse | undefined;
@@ -141,6 +141,10 @@ export class EditProjectComponent {
 
     this.adminService.editProject(project, id).subscribe(async (response) => {
       if (response) {
+        this.imageSelected = undefined;
+        this.errorMessage = null;
+        this.selectedProject = undefined;
+        this.createForm.reset();
         await this.initProjects();
       } else {
         console.error('Error creating post');

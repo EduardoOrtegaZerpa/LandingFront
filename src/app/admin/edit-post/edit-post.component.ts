@@ -6,14 +6,13 @@ import { AdminComponent } from '../admin.component';
 import { AdminService } from '../admin.service';
 import { Post, PostResponse } from '../../../interfaces/interfaces';
 import { lastValueFrom } from 'rxjs';
-import { BrowserModule } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-edit-post',
   standalone: true,
   imports: [ReactiveFormsModule, CommonModule, EditorComponent, AdminComponent, FormsModule],
   templateUrl: './edit-post.component.html',
-  styleUrl: './edit-post.component.css'
+  styleUrls: ['./edit-post.component.css', '../admin-child.css']
 })
 export class EditPostComponent implements AfterViewInit{
 
@@ -111,6 +110,7 @@ export class EditPostComponent implements AfterViewInit{
     this.createForm.controls['content'].enable();
     this.createForm.controls['image'].enable();
     this.createForm.controls['minutesToRead'].enable();
+    this.createForm.controls['newTag'].enable();
     if (this.editor !== undefined) {
       this.editor.setDisabledState(false);
     }
@@ -122,6 +122,7 @@ export class EditPostComponent implements AfterViewInit{
     this.createForm.controls['content'].disable();
     this.createForm.controls['image'].disable();
     this.createForm.controls['minutesToRead'].disable();
+    this.createForm.controls['newTag'].disable();
     if (this.editor !== undefined) {
       this.editor.setDisabledState(true);
     }
@@ -154,11 +155,16 @@ export class EditPostComponent implements AfterViewInit{
       content: editorContent,
       image: this.imageSelected ? this.imageSelected : undefined,
       minutesToRead: this.createForm.value.minutesToRead,
-      tags: this.tags
+      tags: this.tags || []
     };
 
     this.adminService.editPost(post, id).subscribe(async (response) => {
       if (response) {
+        this.tags = [];
+        this.imageSelected = undefined;
+        this.errorMessage = null;
+        this.createForm.reset();
+        this.selectedPost = undefined;
         await this.initPosts();
       } else {
         console.error('Error creating post');

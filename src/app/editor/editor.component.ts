@@ -98,7 +98,7 @@ export class EditorComponent implements AfterViewInit, ControlValueAccessor  {
 
 	private onChange: (value: string) => void = () => {};
 	private onTouched: () => void = () => {};  
-	public editorInstance: any;
+	public editorInstance: DecoupledEditor | undefined;
 
   	constructor(private changeDetectorRef: ChangeDetectorRef) { }
 
@@ -131,9 +131,14 @@ export class EditorComponent implements AfterViewInit, ControlValueAccessor  {
 		this.onTouched = fn;
 	}
 
-	public setDisabledState?(isDisabled: boolean): void {
+	public setDisabledState(isDisabled: boolean): void {
 		if (this.editorInstance) {
-			this.editorInstance.isReadOnly = isDisabled;
+			
+			if (isDisabled) {
+				this.editorInstance.enableReadOnlyMode('content');
+			} else {
+				this.editorInstance.disableReadOnlyMode('content');
+			}
 		}
 	}
 

@@ -1,57 +1,39 @@
-import {HttpInterceptor, HttpRequest, HttpHandler, HttpEvent, HTTP_INTERCEPTORS, HttpResponse, HttpErrorResponse} from '@angular/common/http';
-import {Observable, catchError, throwError} from 'rxjs';
-import {Injectable, Provider} from '@angular/core';
-import { LoginService } from './login/login.service';
+import {HttpErrorResponse} from '@angular/common/http';
+import {catchError, throwError} from 'rxjs';
+import { HttpInterceptorFn } from '@angular/common/http';
 
-@Injectable()
-export class AuthInterceptor implements HttpInterceptor {
-  
-  constructor(private loginSerivce: LoginService) {}
 
-  intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    const authToken = this.loginSerivce.getToken();
-
+export const AuthInterceptor: HttpInterceptorFn = (req, next) => {
+    const authToken = sessionStorage.getItem('token');
+    
+    if (!authToken) {
+        return next(req);
+    }
+    
     const authReq = req.clone({
-      setHeaders: {
+        setHeaders: {
         Authorization: `Bearer ${authToken}`
-      },
-      withCredentials: true
+        },
+        withCredentials: true
     });
-
-    return next.handle(authReq);
-  }
-}
-
-@Injectable()
-export class ResponseInterceptor implements HttpInterceptor {
-  constructor(private loginService: LoginService) {}
-
-  intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    return next.handle(request).pipe(
-      catchError((error: HttpErrorResponse) => {
-        const statusCode = error.status;
-        const responseBody = error.error;
-        if (statusCode === 401) {
-            const hasAuthorizationHeader = request.headers.has('Authorization');
-            if (hasAuthorizationHeader) {
-                this.loginService.logout();
-            }
-        }
-        return throwError({statusCode, responseBody});
-      })
-    );
-  }
-}
-
-export const AuthInterceptorProvider: Provider = {
-  provide: HTTP_INTERCEPTORS,
-  useClass: AuthInterceptor,
-  multi: true
+    
+    return next(authReq);
 };
 
-export const ResponseInterceptorProvider: Provider = {
-  provide: HTTP_INTERCEPTORS,
-  useClass: ResponseInterceptor,
-  multi: true
+export const ResponseInterceptor: HttpInterceptorFn = (req, next) => {
+    return next(req).pipe(
+        catchError((error: HttpErrorResponse) => {
+            const statusCode = error.status;
+            const responseBody = error.error;
+            if (statusCode === 401) {
+                const hasAuthorizationHeader = req.headers.has('Authorization');
+                if (hasAuthorizationHeader) {
+                    sessionStorage.removeItem('token');
+                    window.location.reload();
+                }
+            }
+            return throwError({statusCode, responseBody});
+        })
+    );
 };
 

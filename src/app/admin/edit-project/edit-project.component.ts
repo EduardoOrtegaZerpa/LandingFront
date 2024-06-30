@@ -1,29 +1,27 @@
-import { CommonModule } from '@angular/common';
-import { AfterViewInit, ChangeDetectorRef, Component, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, ViewChild } from '@angular/core';
+import { Post, PostResponse, Project, ProjectResponse } from '../../../interfaces/interfaces';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { EditorComponent } from '../../editor/editor.component';
-import { AdminComponent } from '../admin.component';
 import { AdminService } from '../admin.service';
-import { Post, PostResponse } from '../../../interfaces/interfaces';
+import { CommonModule } from '@angular/common';
+import { AdminComponent } from '../admin.component';
 import { lastValueFrom } from 'rxjs';
-import { BrowserModule } from '@angular/platform-browser';
 
 @Component({
-  selector: 'app-edit-post',
+  selector: 'app-edit-project',
   standalone: true,
   imports: [ReactiveFormsModule, CommonModule, EditorComponent, AdminComponent, FormsModule],
-  templateUrl: './edit-post.component.html',
-  styleUrl: './edit-post.component.css'
+  templateUrl: './edit-project.component.html',
+  styleUrl: './edit-project.component.css'
 })
-export class EditPostComponent implements AfterViewInit{
+export class EditProjectComponent {
 
-  posts: PostResponse[] = [];
-  selectedPost: PostResponse | undefined;
+  projects: ProjectResponse[] = [];
+  selectedProject: ProjectResponse | undefined;
   createForm: FormGroup;
   @ViewChild(EditorComponent) editor!: EditorComponent;
   imageSelected: File | undefined;
   errorMessage: string | null = null;
-  tags: string[] = [];
 
   constructor (private fb: FormBuilder, private changeDetectorRef: ChangeDetectorRef, private adminService: AdminService) {
     this.createForm = this.fb.group({
@@ -31,14 +29,13 @@ export class EditPostComponent implements AfterViewInit{
       description: [{ value: '', disabled: true }, Validators.required],
       content: [{ value: '', disabled: true }, Validators.required],
       image: [{ value: '', disabled: true }],
-      minutesToRead: [{ value: '', disabled: true }, Validators.required],
-      newTag: ['']
+      githubUrl: [{ value: '', disabled: true }, Validators.required],
     });
   }
 
   ngAfterViewInit(): void {
     setTimeout(async () => {
-      await this.initPosts();
+      await this.initProjects();
       this.changeDetectorRef.detectChanges();
     }, 0);
   }
@@ -56,12 +53,12 @@ export class EditPostComponent implements AfterViewInit{
     } 
   }
 
-  onPostSelected(event: Event) {
-    const selectedPost = (event.target as HTMLSelectElement).value;
-    this.selectedPost = this.posts.find((post) => post.title === selectedPost);
+  onProjectSelected(event: Event) {
+    const selectedProject = (event.target as HTMLSelectElement).value;
+    this.selectedProject = this.projects.find((project) => project.title === selectedProject);
 
-    if (this.selectedPost) {
-      this.patchFormValues(this.selectedPost);
+    if (this.selectedProject) {
+      this.patchFormValues(this.selectedProject);
       this.enableForm();
     } else {
       this.createForm.reset();
@@ -69,48 +66,33 @@ export class EditPostComponent implements AfterViewInit{
     }
   }
 
-  async initPosts() {
-    await this.getPosts();
-    if (this.posts.length > 0) {
-      this.selectedPost = this.posts[0];
-      this.patchFormValues(this.selectedPost);
+  async initProjects() {
+    await this.getProjects();
+    if (this.projects.length > 0) {
+      this.selectedProject = this.projects[0];
+      this.patchFormValues(this.selectedProject);
       this.enableForm();
     } else {
       this.disableForm();
     }
   }
 
-  patchFormValues(post: PostResponse | Post) {
+  patchFormValues(project: ProjectResponse | Project) {
     this.createForm.patchValue({
-      title: post.title,
-      description: post.description,
-      content: post.content,
-      minutesToRead: post.minutesToRead
+      title: project.title,
+      description: project.description,
+      content: project.content,
+      githubUrl: project.githubUrl
     });
-    this.editor.writeValue(post.content);
+    this.editor.writeValue(project.content);
   }
-
-  addTag() {
-    const newTag = this.createForm.value.newTag;
-    if (newTag.trim() !== '') {
-      if (!this.tags.includes(newTag) && !/\s/.test(newTag)) {
-        this.tags.push(newTag);
-      }
-      this.createForm.patchValue({ newTag: '' });
-    }
-  }
-
-  removeTag(index: number) {
-    this.tags.splice(index, 1);
-  }
-
 
   enableForm() {
     this.createForm.controls['title'].enable();
     this.createForm.controls['description'].enable();
     this.createForm.controls['content'].enable();
     this.createForm.controls['image'].enable();
-    this.createForm.controls['minutesToRead'].enable();
+    this.createForm.controls['githubUrl'].enable();
     if (this.editor !== undefined) {
       this.editor.setDisabledState(false);
     }
@@ -121,7 +103,7 @@ export class EditPostComponent implements AfterViewInit{
     this.createForm.controls['description'].disable();
     this.createForm.controls['content'].disable();
     this.createForm.controls['image'].disable();
-    this.createForm.controls['minutesToRead'].disable();
+    this.createForm.controls['githubUrl'].disable();
     if (this.editor !== undefined) {
       this.editor.setDisabledState(true);
     }
@@ -131,11 +113,11 @@ export class EditPostComponent implements AfterViewInit{
     this.createForm.patchValue({ content });
   }
 
-  editPost() {
+  editProject() {
 
     const hasItChanged = this.compareChanges();
 
-    if (!hasItChanged || this.selectedPost === undefined) {
+    if (!hasItChanged || this.selectedProject === undefined) {
       console.error('No changes detected');
       return;
     }
@@ -147,31 +129,30 @@ export class EditPostComponent implements AfterViewInit{
       return;
     }
 
-    const id = this.selectedPost.id;
-    const post: Post = {
+    const id = this.selectedProject.id;
+
+    const project: Project = {
       title: this.createForm.value.title,
       description: this.createForm.value.description,
       content: editorContent,
       image: this.imageSelected ? this.imageSelected : undefined,
-      minutesToRead: this.createForm.value.minutesToRead,
-      tags: this.tags
+      githubUrl: this.createForm.value.githubUrl
     };
 
-    this.adminService.editPost(post, id).subscribe(async (response) => {
+    this.adminService.editProject(project, id).subscribe(async (response) => {
       if (response) {
-        await this.initPosts();
+        await this.initProjects();
       } else {
         console.error('Error creating post');
       }
     });
   }
 
-  async getPosts(): Promise<void> {
+  async getProjects(): Promise<void> {
     try {
-      const response = await lastValueFrom(this.adminService.getPosts());
+      const response = await lastValueFrom(this.adminService.getProjects());
       if (response) {
-        this.posts = response;
-        this.tags = this.posts.map((post) => post.tags).flat();
+        this.projects = response;
       } else {
         console.error('Error getting posts');
       }
@@ -182,21 +163,20 @@ export class EditPostComponent implements AfterViewInit{
 
   compareChanges(): Boolean {
 
-    if (this.selectedPost) {
-      const post: Post = {
+    if (this.selectedProject) {
+
+      const project: Project = {
         title: this.createForm.value.title,
         description: this.createForm.value.description,
         content: this.createForm.value.content,
-        minutesToRead: this.createForm.value.minutesToRead,
-        tags: this.tags
+        githubUrl: this.createForm.value.githubUrl
       };
 
-      if (post.title !== this.selectedPost.title ||
-          post.description !== this.selectedPost.description ||
-          post.content !== this.selectedPost.content ||
-          this.imageSelected !== undefined ||
-          post.minutesToRead !== this.selectedPost.minutesToRead ||
-          post.tags !== this.selectedPost.tags) {
+      if (project.title !== this.selectedProject.title ||
+          project.description !== this.selectedProject.description ||
+          project.content !== this.selectedProject.content ||
+          this.imageSelected !== undefined || 
+          project.githubUrl !== this.selectedProject.githubUrl) {
         return true;
       }
 
@@ -209,3 +189,4 @@ export class EditPostComponent implements AfterViewInit{
 
 
 }
+

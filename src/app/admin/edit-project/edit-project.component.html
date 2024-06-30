@@ -1,7 +1,15 @@
 <div class="create">
-    <h1>Create Repository</h1>
-    <form (ngSubmit)="createRepo()" [formGroup]="createForm">
+    <h1>Edit Project</h1>
+    <form (ngSubmit)="editProject()" [formGroup]="createForm">
         <div class="form-group">
+            <div class="form-option">
+                <div class="form-option-content">
+                    <label for="project">Select Project</label>
+                    <select class="form-control" id="project" name="project" (change)="onProjectSelected($event)">
+                        <option *ngFor="let project of projects" [ngValue]="project">{{ project.title }}</option>
+                    </select>
+                </div>
+            </div>
 
             <div class="form-option">
                 <div class="form-option-content">
@@ -40,21 +48,21 @@
                     <label for="image" class="file-label" [ngClass]="{'selected': imageSelected?.name}">
                       {{ imageSelected ? imageSelected.name : 'Seleccionar archivo' }}
                     </label>
-                    <input type="file" class="file-input form-control" id="image" name="image" (change)="onFileSelected($event)" formControlName="image" required>
+                    <input type="file" class="file-input form-control" id="image" name="image" (change)="onFileSelected($event)" formControlName="image">
                   </div>
                 </div>
-                <div *ngIf="createForm.controls['image'].invalid && (createForm.controls['image'].dirty || createForm.controls['image'].touched)" class="error">
-                  <small class="text-danger">{{ errorMessage ? errorMessage : 'Image is required.' }}</small>
+                <div *ngIf="createForm.controls['image'].dirty && errorMessage" class="error">
+                  <small class="text-danger">{{ errorMessage }}</small>
                 </div>
               </div>
 
             <div class="form-option">
                 <div class="form-option-content">
-                    <label for="githubUrl">Github URL</label>
+                    <label for="githubUrl">GitHub URL</label>
                     <input type="text" class="form-control" id="githubUrl" name="githubUrl" formControlName="githubUrl" required>
                 </div>
                 <div *ngIf="createForm.controls['githubUrl'].invalid && (createForm.controls['githubUrl'].dirty || createForm.controls['githubUrl'].touched)" class="error">
-                    <small class="text-danger">Minutes to Read is required.</small>
+                    <small class="text-danger">GitHub URL is required.</small>
                 </div>
             </div>
 

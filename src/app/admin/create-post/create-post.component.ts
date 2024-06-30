@@ -33,13 +33,6 @@ export class CreatePostComponent{
     });
   }
 
-  // ngAfterViewInit(): void {
-  //   setTimeout(() => {
-  //     this.setInitialContent();
-  //     this.changeDetectorRef.detectChanges();
-  //   }, 0);
-  // }
-
   onFileSelected(event: Event) {
     const target = event.target as HTMLInputElement;
     const file: File = (target.files as FileList)[0];
@@ -53,20 +46,17 @@ export class CreatePostComponent{
     } 
   }
 
-  // setInitialContent(): void {
-  //   const initialContent = '<p>Contenido inicial</p>';
-  //   this.createForm.patchValue({ content: initialContent });
-  //   if (this.editor) {
-  //     this.editor.writeValue(initialContent); // Actualiza el contenido del editor
-  //   }
-  // }
-
   onEditorContentChange(content: string): void {
     this.createForm.patchValue({ content });
   }
 
   createPost() {
-    const editorContent = this.editor.editorInstance.getData();
+    const editorContent = this.editor.editorInstance?.getData();
+
+    if (!editorContent) {
+      this.errorMessage = 'Please enter some content';
+      return;
+    }
 
     if (this.imageSelected === undefined) {
       this.errorMessage = 'Please select an image file';
@@ -78,13 +68,12 @@ export class CreatePostComponent{
       description: this.createForm.value.description,
       content: editorContent,
       image: this.imageSelected,
-      minutesToRead: this.createForm.value.minutesToRead
+      minutesToRead: this.createForm.value.minutesToRead,
+      tags: []
     };
 
     this.adminService.createPost(post).subscribe((response) => {
-      if (response) {
-        console.log('Post created:', response);
-      } else {
+      if (!response) {
         console.error('Error creating post');
       }
     });

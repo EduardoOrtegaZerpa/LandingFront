@@ -3,22 +3,24 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { EditorComponent } from '../../editor/editor.component';
 import { CommonModule } from '@angular/common';
 import { AdminComponent } from '../admin.component';
+import { Project } from '../../../interfaces/interfaces';
+import { AdminService } from '../admin.service';
 
 @Component({
-  selector: 'app-create-repository',
+  selector: 'app-create-project',
   standalone: true,
   imports: [ReactiveFormsModule, CommonModule, EditorComponent],
-  templateUrl: './create-repository.component.html',
-  styleUrl: './create-repository.component.css'
+  templateUrl: './create-project.component.html',
+  styleUrl: './create-project.component.css'
 })
-export class CreateRepositoryComponent {
+export class CreateProjectComponent {
 
   createForm: FormGroup;
   @ViewChild(EditorComponent) editor!: EditorComponent;
   imageSelected: File | undefined;
   errorMessage: string | null = null;
 
-  constructor (private fb: FormBuilder, private changeDetectorRef: ChangeDetectorRef) {
+  constructor (private fb: FormBuilder, private changeDetectorRef: ChangeDetectorRef, private adminService: AdminService) {
     this.createForm = this.fb.group({
       title: ['', Validators.required],
       description: ['', Validators.required],
@@ -45,8 +47,31 @@ export class CreateRepositoryComponent {
     this.createForm.patchValue({ content });
   }
 
-  createRepo() {
-    const editorContent = this.editor.editorInstance.getData();
-    console.log(editorContent);
+  createProject() {
+    const editorContent = this.editor.editorInstance?.getData();
+
+    if (!editorContent) {
+      this.errorMessage = 'Please enter some content';
+      return;
+    }
+
+    if (this.imageSelected === undefined) {
+      this.errorMessage = 'Please select an image file';
+      return;
+    }
+
+    const project: Project = {
+      title: this.createForm.value.title,
+      description: this.createForm.value.description,
+      content: editorContent,
+      image: this.imageSelected,
+      githubUrl: this.createForm.value.githubUrl
+    };
+
+    this.adminService.createProject(project).subscribe((response) => {
+      if (!response) {
+        console.error('Error creating project');
+      }
+    });
   }
 }

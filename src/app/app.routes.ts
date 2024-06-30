@@ -10,8 +10,8 @@ import { AdminComponent } from './admin/admin.component';
 import { adminGuard } from './admin.guard';
 import { CreatePostComponent } from './admin/create-post/create-post.component';
 import { EditPostComponent } from './admin/edit-post/edit-post.component';
-import { CreateRepositoryComponent } from './admin/create-repository/create-repository.component';
-import { EditRepositoryComponent } from './admin/edit-repository/edit-repository.component';
+import { CreateProjectComponent } from './admin/create-project/create-project.component';
+import { EditProjectComponent } from './admin/edit-project/edit-project.component';
 
 export const routes: Routes = [
     {path: '', redirectTo: '/home', pathMatch: 'full'},
@@ -22,12 +22,11 @@ export const routes: Routes = [
     {path: 'contact', component: ContactComponent},
     {path: 'login', component: LoginComponent},
     {path: 'notAvailable', component: NotAvailablePageComponent},
-    // {path: 'admin', component: AdminComponent, canActivate: [adminGuard]},
-    {path: 'admin', component: AdminComponent, children: [
+    {path: 'admin', component: AdminComponent, canActivate: [adminGuard], children: [
         {path: 'create-post', component: CreatePostComponent},
         {path: 'edit-post', component: EditPostComponent},
-        {path: 'create-repository', component: CreateRepositoryComponent},
-        {path: 'edit-repository', component: EditRepositoryComponent},
+        {path: 'create-repository', component: CreateProjectComponent},
+        {path: 'edit-repository', component: EditProjectComponent},
         {path: '', redirectTo: 'create-post', pathMatch: 'full'}
     ]},
 ];

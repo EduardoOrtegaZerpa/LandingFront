@@ -15,11 +15,10 @@ export class LoginService {
 
   login(credentials: {username: string, password: string}): Observable<boolean> {
 
-    console.log(credentials);
     return this.http.post('http://localhost:8080/login', credentials).pipe(
       map((response: any) => {
         if (response && response.token) {
-          localStorage.setItem('token', response.token);
+          sessionStorage.setItem('token', response.token);
           this.loginStatusSubject.next(true);
           return true;
         }
@@ -32,15 +31,37 @@ export class LoginService {
   }
 
   logout() {
-    localStorage.removeItem('token');
+    sessionStorage.removeItem('token');
     this.loginStatusSubject.next(false);
   }
 
   getToken(): string | null {
-    return localStorage.getItem('token');
+    return sessionStorage.getItem('token');
   }
 
   loginStatus$(): Observable<boolean> {
     return this.loginStatusSubject.asObservable();
+  }
+
+
+  checkValidToken(): Observable<boolean> {
+    const token = this.getToken();
+    
+    if (!token) {
+      return of(false);
+    }
+
+    return this.http.post('http://localhost:8080/validate/token', {}).pipe(
+      map((response: any) => {
+        if (response && response.isValid) {
+          this.loginStatusSubject.next(true);
+          return true;
+        }
+        return false;
+      }),
+      catchError(() => {
+        return of(false);
+      })
+    );
   }
 }

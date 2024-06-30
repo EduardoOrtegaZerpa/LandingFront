@@ -1,15 +1,7 @@
 <div class="create">
-    <h1>Edit Post</h1>
-    <form (ngSubmit)="editPost()" [formGroup]="createForm">
+    <h1>Create Project</h1>
+    <form (ngSubmit)="createProject()" [formGroup]="createForm">
         <div class="form-group">
-            <div class="form-option">
-                <div class="form-option-content">
-                    <label for="post">Select Post</label>
-                    <select class="form-control" id="post" name="post" (change)="onPostSelected($event)">
-                        <option *ngFor="let post of posts" [ngValue]="post">{{ post.title }}</option>
-                    </select>
-                </div>
-            </div>
 
             <div class="form-option">
                 <div class="form-option-content">
@@ -48,35 +40,22 @@
                     <label for="image" class="file-label" [ngClass]="{'selected': imageSelected?.name}">
                       {{ imageSelected ? imageSelected.name : 'Seleccionar archivo' }}
                     </label>
-                    <input type="file" class="file-input form-control" id="image" name="image" (change)="onFileSelected($event)" formControlName="image">
+                    <input type="file" class="file-input form-control" id="image" name="image" (change)="onFileSelected($event)" formControlName="image" required>
                   </div>
                 </div>
-                <div *ngIf="createForm.controls['image'].dirty && errorMessage" class="error">
-                  <small class="text-danger">{{ errorMessage }}</small>
+                <div *ngIf="createForm.controls['image'].invalid && (createForm.controls['image'].dirty || createForm.controls['image'].touched)" class="error">
+                  <small class="text-danger">{{ errorMessage ? errorMessage : 'Image is required.' }}</small>
                 </div>
               </div>
 
             <div class="form-option">
                 <div class="form-option-content">
-                    <label for="minutesToRead">Minutes to Read</label>
-                    <input type="number" class="form-control" id="minutesToRead" name="minutesToRead" formControlName="minutesToRead" required>
+                    <label for="githubUrl">Github URL</label>
+                    <input type="text" class="form-control" id="githubUrl" name="githubUrl" formControlName="githubUrl" required>
                 </div>
-                <div *ngIf="createForm.controls['minutesToRead'].invalid && (createForm.controls['minutesToRead'].dirty || createForm.controls['minutesToRead'].touched)" class="error">
+                <div *ngIf="createForm.controls['githubUrl'].invalid && (createForm.controls['githubUrl'].dirty || createForm.controls['githubUrl'].touched)" class="error">
                     <small class="text-danger">Minutes to Read is required.</small>
                 </div>
-            </div>
-
-            <div class="form-option">
-                <div class="form-option-content">
-                    <input type="text" formControlName="newTag" placeholder="Ingrese nuevo elemento">
-                    <button type="button" (click)="addTag()">Añadir</button>
-                </div>
-                <ul class="tags-ul">
-                    <li *ngFor="let tag of tags; let i = index">
-                      <span class="tag-content">{{ tag }}</span>
-                      <button type="button" (click)="removeTag(i)" class="delete-button"><i class="fas fa-trash-alt"></i></button>
-                    </li>
-                </ul>
             </div>
 
             <button type="submit" [disabled]="createForm.invalid">Submit</button>

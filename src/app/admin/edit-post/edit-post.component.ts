@@ -6,6 +6,7 @@ import { AdminComponent } from '../admin.component';
 import { AdminService } from '../admin.service';
 import { Post, PostResponse } from '../../../interfaces/interfaces';
 import { lastValueFrom } from 'rxjs';
+import { UserService } from '../../user.service';
 
 @Component({
   selector: 'app-edit-post',
@@ -24,7 +25,13 @@ export class EditPostComponent implements AfterViewInit{
   errorMessage: string | null = null;
   tags: string[] = [];
 
-  constructor (private fb: FormBuilder, private changeDetectorRef: ChangeDetectorRef, private adminService: AdminService) {
+  constructor (
+    private fb: FormBuilder, 
+    private changeDetectorRef: ChangeDetectorRef, 
+    private adminService: AdminService,
+    private userService: UserService
+    
+  ) {
     this.createForm = this.fb.group({
       title: [{ value: '', disabled: true }, Validators.required],
       description: [{ value: '', disabled: true }, Validators.required],
@@ -163,7 +170,6 @@ export class EditPostComponent implements AfterViewInit{
         this.tags = [];
         this.imageSelected = undefined;
         this.errorMessage = null;
-        this.createForm.reset();
         this.selectedPost = undefined;
         await this.initPosts();
       } else {
@@ -174,7 +180,7 @@ export class EditPostComponent implements AfterViewInit{
 
   async getPosts(): Promise<void> {
     try {
-      const response = await lastValueFrom(this.adminService.getPosts());
+      const response = await lastValueFrom(this.userService.getPosts());
       if (response) {
         this.posts = response;
         this.tags = this.posts.map((post) => post.tags).flat();

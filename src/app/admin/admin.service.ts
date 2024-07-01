@@ -58,30 +58,6 @@ export class AdminService {
       );
     }
 
-    getPosts(): Observable<PostResponse[] | undefined> {
-      return this.http.get<PostResponse[]>('http://localhost:8080/blog').pipe(
-        map((response: PostResponse[]) => {
-          return response;
-        }),
-        catchError((error) => {
-          console.error('Error getting posts:', error);
-          return of(undefined);
-        })
-      );
-    }
-
-    getProjects(): Observable<ProjectResponse[] | undefined> {
-      return this.http.get<ProjectResponse[]>('http://localhost:8080/project').pipe(
-        map((response: ProjectResponse[]) => {
-          return response;
-        }),
-        catchError((error) => {
-          console.error('Error getting projects:', error);
-          return of(undefined);
-        })
-      );
-    }
-
     editPost(post: Post, id: number): Observable<PostResponse | undefined> {
       const formData = new FormData();
       formData.append('title', post.title);

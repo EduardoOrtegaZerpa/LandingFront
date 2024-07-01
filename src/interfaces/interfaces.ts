@@ -12,9 +12,9 @@ export interface PostResponse {
     title: string;
     description: string;
     content: string;
-    image: string;
+    imageUrl: string;
     minutesToRead: number;
-    created: Date;
+    created: string;
     tags: string[];
 }
 
@@ -31,9 +31,9 @@ export interface ProjectResponse {
     title: string;
     description: string;
     content: string;
-    image: string;
+    imageUrl: string;
     githubUrl: string;
-    created: Date;
+    created: string;
 }
 
 export interface User {

@@ -6,6 +6,7 @@ import { AdminService } from '../admin.service';
 import { CommonModule } from '@angular/common';
 import { AdminComponent } from '../admin.component';
 import { lastValueFrom } from 'rxjs';
+import { UserService } from '../../user.service';
 
 @Component({
   selector: 'app-edit-project',
@@ -23,7 +24,12 @@ export class EditProjectComponent implements AfterViewInit{
   imageSelected: File | undefined;
   errorMessage: string | null = null;
 
-  constructor (private fb: FormBuilder, private changeDetectorRef: ChangeDetectorRef, private adminService: AdminService) {
+  constructor (
+    private fb: FormBuilder, 
+    private changeDetectorRef: ChangeDetectorRef, 
+    private adminService: AdminService, 
+    private userService: UserService
+  ) {
     this.createForm = this.fb.group({
       title: [{ value: '', disabled: true }, Validators.required],
       description: [{ value: '', disabled: true }, Validators.required],
@@ -144,7 +150,6 @@ export class EditProjectComponent implements AfterViewInit{
         this.imageSelected = undefined;
         this.errorMessage = null;
         this.selectedProject = undefined;
-        this.createForm.reset();
         await this.initProjects();
       } else {
         console.error('Error creating post');
@@ -154,7 +159,7 @@ export class EditProjectComponent implements AfterViewInit{
 
   async getProjects(): Promise<void> {
     try {
-      const response = await lastValueFrom(this.adminService.getProjects());
+      const response = await lastValueFrom(this.userService.getProjects());
       if (response) {
         this.projects = response;
       } else {

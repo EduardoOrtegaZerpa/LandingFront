@@ -47,6 +47,17 @@ export class CreateProjectComponent {
     this.createForm.patchValue({ content });
   }
 
+  resetForm() {
+    this.createForm.patchValue({
+      title: '',
+      description: '',
+      content: '',
+      image: '',
+      githubUrl: ''
+    });
+    this.editor.editorInstance?.setData('');
+  }
+
   createProject() {
     const editorContent = this.editor.editorInstance?.getData();
 
@@ -72,7 +83,7 @@ export class CreateProjectComponent {
       if (!response) {
         console.error('Error creating project');
       }else{
-        this.createForm.reset();
+        this.resetForm();
         this.imageSelected = undefined;
         this.errorMessage = null;
       }

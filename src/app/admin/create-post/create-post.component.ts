@@ -50,6 +50,17 @@ export class CreatePostComponent{
     this.createForm.patchValue({ content });
   }
 
+  resetForm() { 
+    this.createForm.patchValue({
+      title: '',
+      description: '',
+      content: '',
+      image: '',
+      minutesToRead: ''
+    });
+    this.editor.editorInstance?.setData('');
+  }
+
   createPost() {
     const editorContent = this.editor.editorInstance?.getData();
 
@@ -76,7 +87,7 @@ export class CreatePostComponent{
       if (!response) {
         console.error('Error creating post');
       }else{
-        this.createForm.reset();
+        this.resetForm();
         this.imageSelected = undefined;
         this.errorMessage = null;
       }

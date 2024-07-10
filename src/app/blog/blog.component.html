@@ -5,16 +5,46 @@
             <div class="filters">
                 <h2>FILTERS</h2>
                 <div class="filters-buttons">
-                    <button class="filter">All</button>
-                    <button class="filter">Design</button>
-                    <button class="filter">Development</button>
-                    <button class="filter">Marketing</button>
-                    <button class="filter">Photography</button>
+                    <button 
+                    (click)="selectTag(tag)" 
+                    *ngFor="let tag of tags"
+                    [ngClass]="{'selected': selectedTags.includes(tag)}"
+                    class="filter">{{ tag }}</button>
                 </div>
             </div>
             <div class="searching-bar">
                 <h2>SEARCH BLOG</h2>
-                <input type="text" placeholder="Search">
+                <input type="text" placeholder="Search" [(ngModel)]="searchTerm" (input)="filterBlogPosts()">
+            </div>
+        </div>
+    </div>
+    <div class="posts">
+        <div class="post" 
+        *ngFor="let post of filteredPosts; let i = index" 
+        [ngStyle]="{'background-image': 'url(' + post.imageUrl + ')'}"
+        [ngClass]="{
+            'horizontal': isHorizontalMap[post.id],
+            'vertical': !isHorizontalMap[post.id],
+            'black': contrastColorMap[post.id] === 'black',
+            'white': contrastColorMap[post.id] === 'white',
+            'latest': post === latestPost
+          }">
+            <div class="post-container" >
+                <div class="post-latest" *ngIf="post === latestPost">
+                    <div class="latest-text">Latest</div>
+                </div>
+                <div class="post-header" >
+                    <h3 [innerHTML]="post.title"></h3>
+                </div>
+                <div class="post-body">
+                    <div class="description" [innerHTML]="stylesHtml(post.description)"></div>
+                </div>
+                <div class="post-footer">
+                    <div class="tags" *ngIf="post.tags.length > 0">
+                        <button *ngFor="let tag of post.tags" class="tag">{{ tag }}</button>
+                    </div>
+                    <div class="info">{{ formatDate(post.created) }} - {{ post.minutesToRead }} min read</div>
+                </div>
             </div>
         </div>
     </div>

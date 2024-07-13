@@ -12,12 +12,14 @@ import { CreatePostComponent } from './admin/create-post/create-post.component';
 import { EditPostComponent } from './admin/edit-post/edit-post.component';
 import { CreateProjectComponent } from './admin/create-project/create-project.component';
 import { EditProjectComponent } from './admin/edit-project/edit-project.component';
+import { PostComponent } from './post/post.component';
 
 export const routes: Routes = [
     {path: '', redirectTo: '/home', pathMatch: 'full'},
     {path: 'home', component: HomeComponent},
     {path: 'portafolio', component: PortafolioComponent},
     {path: 'blog', component: BlogComponent},
+    {path: 'blog/:id', component: PostComponent},
     {path: 'trajectory', component: TrajectoryComponent},
     {path: 'contact', component: ContactComponent},
     {path: 'login', component: LoginComponent},

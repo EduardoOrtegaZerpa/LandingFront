@@ -4,6 +4,7 @@ import { UserService } from '../user.service';
 import { PostResponse } from '../../interfaces/interfaces';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-blog',
@@ -25,6 +26,7 @@ export class BlogComponent implements OnInit{
 
   constructor(
     private userService: UserService,
+    private router: Router,
     private sanitizer: DomSanitizer
   ) { }
 
@@ -95,6 +97,10 @@ export class BlogComponent implements OnInit{
     return this.blogPosts;
   }
 
+  goToPost(id: number) {
+    this.router.navigate([`/blog/${id}`]);
+  }
+
   getTags() {
     this.blogPosts.forEach((post: PostResponse) => {
       post.tags.forEach((tag: string) => {
@@ -135,7 +141,7 @@ export class BlogComponent implements OnInit{
           console.log(r, g, b);
           const brightness = 0.2126 * (r ? r : 0) + 0.7152 * (g ? g : 0)  + 0.0722 * (b ? b : 0);
           console.log(brightness);
-          resolve(brightness > 127.5 ? 'white' : 'black');
+          resolve(brightness < 127.5 ? 'white' : 'black');
         }
       };
       img.src = imageUrl;

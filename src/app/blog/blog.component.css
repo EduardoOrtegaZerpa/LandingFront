@@ -164,7 +164,7 @@ h3 {
 }
 
 .black .post-header, .black .post-body, .black .post-footer, .black .post-latest{
-    background-color: rgb(54, 54, 54);
+    background-color: rgb(92, 92, 92);
     color: white;
 }
 
@@ -185,21 +185,22 @@ h3 {
     font-size: large;
 }
 
+.white .tag, .white .latest-text {
+    background-color: rgba(0, 0, 0, 0.25);
+    color: rgb(0, 0, 0);
+}
+
+.black .tag, .black .latest-text {
+    background-color: rgba(255, 255, 255, 0.25);
+    color: rgb(255, 255, 255);
+}
+
 .latest-text {
     padding: 10px 20px;
     border-radius: 25px;
     font-size: large;
 }
 
-.white .tag, .white .latest-text {
-    background-color: rgba(0, 0, 0, 0.15);
-    color: rgb(0, 0, 0);
-}
-
-.black .tag, .black .latest-text {
-    background-color: rgba(255, 255, 255, 0.15);
-    color: rgb(255, 255, 255);
-}
 
 .info {
     display: flex;

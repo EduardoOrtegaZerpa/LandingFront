@@ -22,6 +22,18 @@ export class UserService {
     );
   }
 
+  getPost(id: string): Observable<PostResponse | undefined> {
+    return this.http.get<PostResponse>(`http://localhost:8080/blog/${id}`).pipe(
+      map((response: PostResponse) => {
+        return response;
+      }),
+      catchError((error) => {
+        console.error('Error getting post:', error);
+        return of(undefined);
+      })
+    );
+  }
+
   getProjects(): Observable<ProjectResponse[] | undefined> {
     return this.http.get<ProjectResponse[]>('http://localhost:8080/project').pipe(
       map((response: ProjectResponse[]) => {

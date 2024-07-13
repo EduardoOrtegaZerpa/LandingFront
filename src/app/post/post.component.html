@@ -1,0 +1,8 @@
+<div class="post" *ngIf="post">
+    <div class="info">
+        <h1>{{ post.title }}</h1>
+        <p>{{ post.description }}</p>
+    </div>
+    <img [src]="post.imageUrl" alt="Post image" class="post-image">
+    <div class="post-content" [innerHTML]="stylesHtml(post.content)"></div>
+</div>

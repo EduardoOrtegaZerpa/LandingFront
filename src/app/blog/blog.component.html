@@ -28,7 +28,8 @@
             'black': contrastColorMap[post.id] === 'black',
             'white': contrastColorMap[post.id] === 'white',
             'latest': post === latestPost
-          }">
+          }"
+          (click)="goToPost(post.id)">
             <div class="post-container" >
                 <div class="post-latest" *ngIf="post === latestPost">
                     <div class="latest-text">Latest</div>

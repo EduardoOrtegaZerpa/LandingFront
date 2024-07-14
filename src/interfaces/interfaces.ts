@@ -40,3 +40,12 @@ export interface User {
     username: string;
     password: string;
 }
+
+export interface Trajectory {
+    content: string;
+}
+
+export interface TrajectoryResponse {
+    id: number;
+    content: string;
+}

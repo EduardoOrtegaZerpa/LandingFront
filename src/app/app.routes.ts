@@ -14,6 +14,7 @@ import { CreateProjectComponent } from './admin/create-project/create-project.co
 import { EditProjectComponent } from './admin/edit-project/edit-project.component';
 import { PostComponent } from './post/post.component';
 import { ProjectComponent } from './project/project.component';
+import { EditTrajectoryComponent } from './admin/edit-trajectory/edit-trajectory.component';
 
 export const routes: Routes = [
     {path: '', redirectTo: '/home', pathMatch: 'full'},
@@ -31,6 +32,7 @@ export const routes: Routes = [
         {path: 'edit-post', component: EditPostComponent},
         {path: 'create-repository', component: CreateProjectComponent},
         {path: 'edit-repository', component: EditProjectComponent},
+        {path: 'edit-trajectory', component: EditTrajectoryComponent},
         {path: '', redirectTo: 'create-post', pathMatch: 'full'}
     ]},
     {path: '**', redirectTo: '/notAvailable'}

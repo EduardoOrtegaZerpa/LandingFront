@@ -1,3 +1,9 @@
+:host{
+    display: flex;
+    flex-direction: column;
+    flex: 1
+}
+
 .error {
     margin-top: 5px;
 }
@@ -7,19 +13,24 @@
     font-size: 12px;
 }
 
-.create {
+.create, .edit {
     padding: 40px;
     display: flex;
     flex-direction: column;
+    flex: 1;
 }
 
-.create h1 {
+.create h1, .edit h1 {
     font-size: xxx-large;
     color: white;
     margin-bottom: 40px;
 }
 
-
+.globalForm {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
 
 .form-control {
     background-color: white;
@@ -29,7 +40,8 @@
     display: flex;
     flex-direction: column;
     gap: 20px;
-    
+    flex: 1;
+    justify-content: space-between;
 }
 
 .form-option {

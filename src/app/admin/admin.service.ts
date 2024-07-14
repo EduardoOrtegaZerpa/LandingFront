@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Post, PostResponse, Project, ProjectResponse } from '../../interfaces/interfaces';
+import { Post, PostResponse, Project, ProjectResponse, Trajectory, TrajectoryResponse } from '../../interfaces/interfaces';
 import { Observable, catchError, map, of } from 'rxjs';
 
 @Injectable({
@@ -96,6 +96,20 @@ export class AdminService {
         }),
         catchError((error) => {
           console.error('Error editing project:', error);
+          return of(undefined);
+        })
+      );
+    }
+
+    editTrajectory(Trajectory: Trajectory, id: number): Observable<TrajectoryResponse | undefined> {
+      const formData = new FormData();
+      formData.append('content', Trajectory.content);
+      return this.http.put<any>(`http://localhost:8080/trajectory/${id}`, formData).pipe(
+        map((response: any) => {
+          return response.trajectory as TrajectoryResponse;
+        }),
+        catchError((error) => {
+          console.error('Error editing trajectory:', error);
           return of(undefined);
         })
       );

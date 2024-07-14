@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { PostResponse, ProjectResponse } from '../interfaces/interfaces';
+import { PostResponse, ProjectResponse, TrajectoryResponse } from '../interfaces/interfaces';
 import { Observable, map, catchError, of } from 'rxjs';
 
 @Injectable({
@@ -53,6 +53,18 @@ export class UserService {
       }),
       catchError((error) => {
         console.error('Error getting projects:', error);
+        return of(undefined);
+      })
+    );
+  }
+
+  getTrajectory(): Observable<TrajectoryResponse | undefined> {
+    return this.http.get<TrajectoryResponse>('http://localhost:8080/trajectory').pipe(
+      map((response: TrajectoryResponse) => {
+        return response;
+      }),
+      catchError((error) => {
+        console.error('Error getting trajectory:', error);
         return of(undefined);
       })
     );

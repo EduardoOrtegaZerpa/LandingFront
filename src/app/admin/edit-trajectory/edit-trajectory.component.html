@@ -1,0 +1,19 @@
+<div class="edit">
+    <h1>Edit Trajectory</h1>
+    <form (ngSubmit)="editTrajectory()" [formGroup]="editForm" class="globalForm">
+        <div class="form-group">
+
+            <div class="form-option">
+                <div class="form-option-content-textarea">
+                    <label for="content">Content</label>
+                      <app-editor #editor formControlName="content" (contentChange)="onEditorContentChange($event)"></app-editor>
+                </div>  
+                <div *ngIf="editForm.controls['content'].invalid && (editForm.controls['content'].dirty || editForm.controls['content'].touched)" class="error">
+                    <small class="text-danger">Content is required.</small>
+                </div>
+            </div>
+
+            <button type="submit" [disabled]="editForm.invalid || !compareChanges()">Submit</button>
+        </div>
+    </form>
+</div>

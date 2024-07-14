@@ -1,0 +1,8 @@
+<div class="project" *ngIf="project">
+    <div class="info">
+        <h1>{{ project.title }}</h1>
+        <p>{{ project.description }}</p>
+    </div>
+    <img [src]="project.imageUrl" alt="Project image" class="project-image">
+    <div class="project-content" [innerHTML]="stylesHtml(project.content)"></div>
+</div>

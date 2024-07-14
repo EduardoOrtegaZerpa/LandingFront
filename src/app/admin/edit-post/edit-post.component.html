@@ -79,7 +79,7 @@
                 </ul>
             </div>
 
-            <button type="submit" [disabled]="createForm.invalid">Submit</button>
+            <button type="submit" [disabled]="createForm.invalid || !compareChanges()">Submit</button>
         </div>
     </form>
 </div>

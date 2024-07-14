@@ -13,11 +13,13 @@ import { EditPostComponent } from './admin/edit-post/edit-post.component';
 import { CreateProjectComponent } from './admin/create-project/create-project.component';
 import { EditProjectComponent } from './admin/edit-project/edit-project.component';
 import { PostComponent } from './post/post.component';
+import { ProjectComponent } from './project/project.component';
 
 export const routes: Routes = [
     {path: '', redirectTo: '/home', pathMatch: 'full'},
     {path: 'home', component: HomeComponent},
-    {path: 'portafolio', component: PortafolioComponent},
+    {path: 'projects', component: PortafolioComponent},
+    {path: 'projects/:id', component: ProjectComponent},
     {path: 'blog', component: BlogComponent},
     {path: 'blog/:id', component: PostComponent},
     {path: 'trajectory', component: TrajectoryComponent},
@@ -31,4 +33,5 @@ export const routes: Routes = [
         {path: 'edit-repository', component: EditProjectComponent},
         {path: '', redirectTo: 'create-post', pathMatch: 'full'}
     ]},
+    {path: '**', redirectTo: '/notAvailable'}
 ];

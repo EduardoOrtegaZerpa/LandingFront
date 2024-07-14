@@ -5,6 +5,7 @@ import { PortfolioCardComponent } from './portfolio-card/portfolio-card.componen
 import { ProjectResponse } from '../../interfaces/interfaces';
 import { UserService } from '../user.service';
 import { lastValueFrom } from 'rxjs';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -20,7 +21,10 @@ export class PortafolioComponent implements OnInit{
   filteredProjects: ProjectResponse[] = [];
   searchTerm: string = '';
 
-  constructor(private userService: UserService) { }
+  constructor(
+    private userService: UserService,
+    private router: Router
+  ) { }
 
   async ngOnInit(): Promise<void> {
     await this.getProjects();
@@ -52,5 +56,7 @@ export class PortafolioComponent implements OnInit{
     }
   }
 
-
+  goToProject(id: number) {
+    this.router.navigateByUrl(`/projects/${id}`);
+  }
 }

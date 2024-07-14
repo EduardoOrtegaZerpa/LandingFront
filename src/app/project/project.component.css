@@ -1,0 +1,63 @@
+:host {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+
+.project {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    gap: 20px;
+}
+
+.info {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    background-color: rgba(0, 0, 0, 0.6);
+    color: white;
+    padding: 30px;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding-bottom: 60px;
+}
+
+.info h1 {
+    font-size: 3.5rem;
+    font-weight: bold;
+}
+
+.info p {
+    font-size: 1.4rem;
+}
+
+.project-image {
+    display: block;
+    position: relative;
+    top: -30px;
+    margin-top: -10px;
+    height: auto;
+    max-height: 30vh;
+    max-width: 80%;
+    align-self: center;
+    border-radius: 25px;
+}
+
+.project-content {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 50px;
+    color: white;
+    border-radius: 25px;
+    width: 60%;
+    align-self: center;
+    background-color: rgba(0, 0, 0, 0.2);
+    margin-bottom: 50px;
+}
+
+
+

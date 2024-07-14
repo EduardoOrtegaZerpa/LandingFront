@@ -150,3 +150,8 @@ textarea {
     color: red;
     margin-top: 10px;
 }
+
+.disabled {
+    background-color: #f0f0f0;
+    cursor: not-allowed;
+}

@@ -34,6 +34,18 @@ export class UserService {
     );
   }
 
+  getProject(id: string): Observable<ProjectResponse | undefined> {
+    return this.http.get<ProjectResponse>(`http://localhost:8080/project/${id}`).pipe(
+      map((response: ProjectResponse) => {
+        return response;
+      }),
+      catchError((error) => {
+        console.error('Error getting project:', error);
+        return of(undefined);
+      })
+    );
+  }
+
   getProjects(): Observable<ProjectResponse[] | undefined> {
     return this.http.get<ProjectResponse[]>('http://localhost:8080/project').pipe(
       map((response: ProjectResponse[]) => {

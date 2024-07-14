@@ -15,7 +15,7 @@ import { UserService } from '../../user.service';
   templateUrl: './edit-post.component.html',
   styleUrls: ['./edit-post.component.css', '../admin-child.css']
 })
-export class EditPostComponent implements AfterViewInit{
+export class EditPostComponent implements AfterViewInit {
 
   posts: PostResponse[] = [];
   selectedPost: PostResponse | undefined;
@@ -24,13 +24,13 @@ export class EditPostComponent implements AfterViewInit{
   imageSelected: File | undefined;
   errorMessage: string | null = null;
   tags: string[] = [];
+  originalTags: string[] = [];
 
-  constructor (
+  constructor(
     private fb: FormBuilder, 
     private changeDetectorRef: ChangeDetectorRef, 
     private adminService: AdminService,
     private userService: UserService
-    
   ) {
     this.createForm = this.fb.group({
       title: [{ value: '', disabled: true }, Validators.required],
@@ -94,6 +94,8 @@ export class EditPostComponent implements AfterViewInit{
       minutesToRead: post.minutesToRead
     });
     this.editor.writeValue(post.content);
+    this.tags = [...post.tags];  // Crear una copia de las etiquetas
+    this.originalTags = [...post.tags];  // Guardar una copia de las etiquetas originales
   }
 
   addTag() {
@@ -109,7 +111,6 @@ export class EditPostComponent implements AfterViewInit{
   removeTag(index: number) {
     this.tags.splice(index, 1);
   }
-
 
   enableForm() {
     this.createForm.controls['title'].enable();
@@ -168,6 +169,7 @@ export class EditPostComponent implements AfterViewInit{
     this.adminService.editPost(post, id).subscribe(async (response) => {
       if (response) {
         this.tags = [];
+        this.originalTags = [];
         this.imageSelected = undefined;
         this.errorMessage = null;
         this.selectedPost = undefined;
@@ -203,12 +205,15 @@ export class EditPostComponent implements AfterViewInit{
         tags: this.tags
       };
 
+      console.log('post', post);
+      console.log('selectedPost', this.selectedPost);
+
       if (post.title !== this.selectedPost.title ||
           post.description !== this.selectedPost.description ||
           post.content !== this.selectedPost.content ||
           this.imageSelected !== undefined ||
           post.minutesToRead !== this.selectedPost.minutesToRead ||
-          post.tags !== this.selectedPost.tags) {
+          JSON.stringify(post.tags) !== JSON.stringify(this.originalTags)) {
         return true;
       }
 
@@ -218,6 +223,4 @@ export class EditPostComponent implements AfterViewInit{
 
     return false;
   }
-
-
 }

@@ -36,7 +36,6 @@ export class PortafolioComponent implements OnInit{
       this.filteredProjects = [...this.projects];
     } else {
       const lowerSearchTerm = this.searchTerm.toLowerCase();
-      console.log(lowerSearchTerm);
       this.filteredProjects = this.projects.filter(project =>
         project.title.toLowerCase().includes(lowerSearchTerm) ||
         project.description.toLowerCase().includes(lowerSearchTerm)

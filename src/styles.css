@@ -89,9 +89,16 @@ a {
     display: none;
 }
 
-html, body { height: 100%; }
-body { margin: 0; font-family: 'Arimo', sans-serif; background: linear-gradient(to bottom right, #12264d, #0a334d, #003d4d, #00484d, #00524d);}
 
+main {
+    margin: 0;
+    line-height: 1;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    font-family: 'Arimo', sans-serif;
+    background: linear-gradient(to bottom right, #12264d, #0a334d, #003d4d, #00484d, #00524d);
+}
 
 ::-webkit-scrollbar {
     width: 20px;
@@ -127,5 +134,11 @@ body { margin: 0; font-family: 'Arimo', sans-serif; background: linear-gradient(
     font-family: revert;
     vertical-align: revert;
     font-weight: revert;
+}
+
+#wrapper-container, #loader {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
 }
 

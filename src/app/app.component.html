@@ -1,17 +1,12 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <meta name="description" content="Landing Page and academic and professional information of Eduardo Ortega Zerpa">
-    <meta name="keywords" content="landing, personal, academic, professional, information">    
-    <meta name="author" content="Eduardo Ortega Zerpa">
-    <title>eduortza</title>
-</head>
-<body>
-    <app-header></app-header>
-    <router-outlet></router-outlet>
-    <app-footer></app-footer>
-</body>
-</html>
+<main>
+    <div id="loader" *ngIf="loadingService.isLoading$() | async">
+        <app-header></app-header>
+        <app-loading></app-loading>
+      </div>
+
+    <div id="wrapper-container" [ngClass]="{'non-visible': loadingService.isLoading$() | async}"> 
+        <app-header></app-header>
+        <router-outlet></router-outlet>
+        <app-footer></app-footer>
+    </div>
+</main>

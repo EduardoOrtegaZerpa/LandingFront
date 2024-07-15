@@ -205,9 +205,6 @@ export class EditPostComponent implements AfterViewInit {
         tags: this.tags
       };
 
-      console.log('post', post);
-      console.log('selectedPost', this.selectedPost);
-
       if (post.title !== this.selectedPost.title ||
           post.description !== this.selectedPost.description ||
           post.content !== this.selectedPost.content ||

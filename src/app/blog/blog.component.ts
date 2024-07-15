@@ -138,9 +138,7 @@ export class BlogComponent implements OnInit{
           if (!r || !g || !b) {
             resolve('black');
           }
-          console.log(r, g, b);
           const brightness = 0.2126 * (r ? r : 0) + 0.7152 * (g ? g : 0)  + 0.0722 * (b ? b : 0);
-          console.log(brightness);
           resolve(brightness < 127.5 ? 'white' : 'black');
         }
       };

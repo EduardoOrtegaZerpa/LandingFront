@@ -86,7 +86,6 @@ export class EditTrajectoryComponent implements AfterViewInit{
       this.adminService.editTrajectory(trajectory, this.trajectory.id).subscribe({
         next: (response: TrajectoryResponse | undefined) => {
           if (response) {
-            console.log('Trajectory edited:', response);
             this.trajectory = response;
             this.patchFormValues();
             this.disableForm();

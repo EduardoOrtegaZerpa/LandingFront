@@ -19,13 +19,13 @@ export const provideTranslation = () => ({
 
 
 import { routes } from './app.routes';
-import { AuthInterceptor, ResponseInterceptor } from './auth.interceptor';
+import { AuthInterceptor, LoaderInterceptor, ResponseInterceptor } from './auth.interceptor';
 
 export const appConfig: ApplicationConfig = {
   providers: [
     provideZoneChangeDetection({ eventCoalescing: true }), 
     provideRouter(routes),
-    provideHttpClient(withFetch(), withInterceptors([AuthInterceptor, ResponseInterceptor])),
+    provideHttpClient(withFetch(), withInterceptors([AuthInterceptor, ResponseInterceptor, LoaderInterceptor])),
     importProvidersFrom(
       TranslateModule.forRoot(provideTranslation()),
       TranslateModule.forChild(provideTranslation())

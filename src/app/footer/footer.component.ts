@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { UserService } from '../user.service';
+import { NotificationService } from '../notification/notification.service';
 
 @Component({
   selector: 'app-footer',
@@ -10,7 +11,10 @@ import { UserService } from '../user.service';
 })
 export class FooterComponent {
 
-  constructor (private userService: UserService) {}
+  constructor (
+    private userService: UserService,
+    private notificationService: NotificationService
+  ) {}
 
   suscribe(email: string) {
     const isValid = this.validateEmail(email);
@@ -19,15 +23,17 @@ export class FooterComponent {
       this.userService.subscribeToNewsletter(email).subscribe({
         next: (response) => {
           if (response) {
+            this.notificationService.show('You have subscribed to the newsletter', false);
           } else {
-
+            this.notificationService.show('Error when subscribing to the newsletter', true);
           }
         },
         error: (error) => {
+          this.notificationService.show('Error when subscribing to the newsletter', true);
         }
       });
     } else {
-      console.log('Email is not valid');
+      this.notificationService.show('Invalid email', true);
     }
   }
 

@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Post, PostResponse, Project, ProjectResponse, Trajectory, TrajectoryResponse } from '../../interfaces/interfaces';
 import { Observable, catchError, map, of } from 'rxjs';
+import { NotificationService } from '../notification/notification.service';
 
 @Injectable({
   providedIn: 'root'
@@ -9,7 +10,8 @@ import { Observable, catchError, map, of } from 'rxjs';
 export class AdminService {
 
   constructor(
-    private http: HttpClient
+    private http: HttpClient,
+    private notificationService: NotificationService
   ) {}
 
   createPost(post: Post): Observable<PostResponse | undefined> {
@@ -25,10 +27,11 @@ export class AdminService {
 
     return this.http.post<PostResponse>('http://localhost:8080/blog', formData).pipe(
       map((response: PostResponse) => {
+        this.notificationService.show('Post created', false);
         return response;
       }),
       catchError((error) => {
-        console.error('Error creating post:', error);
+        this.notificationService.show('Error creating post', true);
         return of(undefined);
       })
     );
@@ -49,10 +52,11 @@ export class AdminService {
   
       return this.http.post<ProjectResponse>('http://localhost:8080/project', formData).pipe(
         map((response: ProjectResponse) => {
+          this.notificationService.show('Project created', false);
           return response;
         }),
         catchError((error) => {
-          console.error('Error creating project:', error);
+          this.notificationService.show('Error creating project', true);
           return of(undefined);
         })
       );
@@ -71,10 +75,11 @@ export class AdminService {
   
       return this.http.put<any>(`http://localhost:8080/blog/${id}`, formData).pipe(
         map((response: any) => {
+          this.notificationService.show('Post edited', false);
           return response;
         }),
         catchError((error) => {
-          console.error('Error editing post:', error);
+          this.notificationService.show('Error editing post', true);
           return of(undefined);
         })
       );
@@ -92,10 +97,11 @@ export class AdminService {
   
       return this.http.put<any>(`http://localhost:8080/project/${id}`, formData).pipe(
         map((response: any) => {
+          this.notificationService.show('Project edited', false);
           return response;
         }),
         catchError((error) => {
-          console.error('Error editing project:', error);
+          this.notificationService.show('Error editing project', true);
           return of(undefined);
         })
       );
@@ -106,10 +112,11 @@ export class AdminService {
       formData.append('content', Trajectory.content);
       return this.http.put<any>(`http://localhost:8080/trajectory/${id}`, formData).pipe(
         map((response: any) => {
+          this.notificationService.show('Trajectory edited', false);
           return response.trajectory as TrajectoryResponse;
         }),
         catchError((error) => {
-          console.error('Error editing trajectory:', error);
+          this.notificationService.show('Error editing trajectory', true);
           return of(undefined);
         })
       );

@@ -43,6 +43,8 @@ export class NotificationComponent implements OnInit {
   }
 
   close() {
+    this.isShown = false;
+    this.animateOut = false;
     this.notificationService.hide();
   }
 

@@ -4,8 +4,8 @@
             <h1><b><i>Suscríbete</i></b></h1>
             <p>Asocia tu dirección para que te avise <br> de nuevas publicaciones</p>
             <div class="buttons">
-                <input type="text" placeholder="Correo electrónico">
-                <button>Suscribirse</button>
+                <input type="text" #emailInput placeholder="Correo electrónico">
+                <button (click)="suscribe(emailInput.value)">Suscribirse</button>
             </div>
         </div>
         <div class="contact">
@@ -30,5 +30,4 @@
             </div>
         </div>
     </div>
-
 </footer>

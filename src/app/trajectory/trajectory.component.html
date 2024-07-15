@@ -1,3 +1,4 @@
-<div class="trajectory">
+<div class="trajectory" *ngIf="trajectory">
     <h1>RECORRIDO</h1>
+    <div class="trajectory-content" [innerHTML]="stylesHtml(trajectory.content)"></div>
 </div>

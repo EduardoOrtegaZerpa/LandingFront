@@ -69,4 +69,15 @@ export class UserService {
       })
     );
   }
+
+  subscribeToNewsletter(email: string): Observable<boolean> {
+    return this.http.post<any>('http://localhost:8080/subscribe', email).pipe(
+      map(() => {
+        return true;
+      }),
+      catchError((error) => {
+        return of(false);
+      })
+    );
+  }
 }

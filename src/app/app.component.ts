@@ -8,6 +8,8 @@ import { Observable } from 'rxjs';
 import { LoadingService } from './loading/loading.service';
 import { CommonModule } from '@angular/common';
 import { LoadingComponent } from './loading/loading.component';
+import { NotificationComponent } from './notification/notification.component';
+import { NotificationService } from './notification/notification.service';
 
 @Component({
   selector: 'app-root',
@@ -21,6 +23,7 @@ import { LoadingComponent } from './loading/loading.component';
     RouterLink, 
     RouterLinkActive,
     LoadingComponent,
+    NotificationComponent,
     FooterComponent
   ],
   templateUrl: './app.component.html',
@@ -35,6 +38,7 @@ export class AppComponent implements OnInit, AfterViewInit{
     private translate: TranslateService, 
     private loginService: LoginService,
     public loadingService: LoadingService,
+    public notificationService: NotificationService,
     private cdr: ChangeDetectorRef
   ) {
     this.translate.setDefaultLang('es');

@@ -41,14 +41,6 @@ html{
     background-color: white;
 }
 
-body {
-    margin: 0;
-    line-height: 1;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-}
-
 ol, ul {
     list-style: none;
     margin-block-start: 0;
@@ -139,6 +131,7 @@ main {
 #wrapper-container, #loader {
     display: flex;
     flex-direction: column;
+    min-height: 100vh;
     flex: 1;
 }
 

@@ -1,11 +1,11 @@
 <header>
   <nav>
     <ul>
-      <li><a routerLink="/">Inicio</a></li>
-      <li><a routerLink="/projects">Portafolio</a></li>
-      <li><a routerLink="/blog">Blog</a></li>
-      <li><a routerLink="/trajectory">Recorrido</a></li>
-      <li *ngIf="loggedIn"><a routerLink="/admin">Admin</a></li>
+      <li><a routerLink="/home" routerLinkActive="active">Inicio</a></li>
+      <li><a routerLink="/projects" routerLinkActive="active">Portafolio</a></li>
+      <li><a routerLink="/blog" routerLinkActive="active">Blog</a></li>
+      <li><a routerLink="/trajectory" routerLinkActive="active">Recorrido</a></li>
+      <li *ngIf="loggedIn"><a routerLink="/admin" routerLinkActive="active">Admin</a></li>
     </ul>
   </nav>
 </header>

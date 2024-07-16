@@ -45,9 +45,25 @@ h2 {
 
 h3 {
     color: #989898;
-    font-size: large;
+    font-size: medium;
 }
 
 p {
     color: #D6D6D6;
+    font-size: large;
+}
+
+@media screen and (max-width: 800px) {
+    h2 {
+        font-size: larger;
+    }
+
+    h3 {
+        font-size: small;
+    }
+
+    p {
+        font-size: medium;
+    }
+    
 }

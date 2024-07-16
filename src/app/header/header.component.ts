@@ -12,7 +12,9 @@ import { CommonModule } from '@angular/common';
 })
 export class HeaderComponent implements OnInit {
 
-  constructor(private loginService: LoginService) {}
+  constructor(
+    private loginService: LoginService
+  ) {}
 
   loggedIn: boolean = false;
 

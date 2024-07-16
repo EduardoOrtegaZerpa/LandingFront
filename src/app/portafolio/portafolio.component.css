@@ -31,3 +31,28 @@ input {
     margin-top: 40px;
 }
 
+@media screen and (max-width: 1800px) {
+    .cards {
+        grid-template-columns: 1fr 1fr 1fr;
+    }
+}
+
+@media screen and (max-width: 1200px) {
+    .cards {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+@media screen and (max-width: 800px) {
+    .portafolio {
+        padding: 40px 40px;
+    }
+}
+
+@media screen and (max-width: 650px) {
+    .cards {
+        grid-template-columns: 1fr;
+    }
+    
+}
+

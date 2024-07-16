@@ -94,3 +94,22 @@
   right: 15%;
   animation-delay: .3s;
 }
+
+@media screen and (max-width: 800px) {
+  
+  .wrapper {
+    width: 100px;
+    height: 30px;
+  }
+
+  .circle {
+    width: 10px;
+    height: 10px;
+  }
+
+  .shadow {
+    width: 10px;
+    height: 2px;
+  }
+  
+}

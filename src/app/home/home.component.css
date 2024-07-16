@@ -141,6 +141,7 @@ a{
     flex-direction: column;
     gap: 20px;
     background-color: black;
+    cursor: pointer;
 }
 
 .blog h2{
@@ -152,14 +153,13 @@ a{
     display: flex;
     width: 100%;
     height: 400px;
-    gap: 20px;
+    gap: 60px;
 }
 
 .blog-image{
-    background-color: white;
-    flex: 1;
-    width: 200px;
-    height: 400px;
+    /* background-color: white;
+    flex: 1;  */
+    max-width: 50%;
 }
 
 .blog-content{
@@ -201,10 +201,10 @@ a{
 
 .blog-basic-info p{
     font-size: medium;
-    color: #FAFAFA;
+    color: gray;
 }
 
-.blog-description{
-    color: white;
-    font-size: x-large;
+.blog-description p{
+    color: gainsboro;
+    font-size: larger;
 }

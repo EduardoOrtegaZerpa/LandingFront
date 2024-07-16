@@ -52,29 +52,27 @@
             </div>
         </div>
     </div>        
-    <div class="blog">
+    <div class="blog" *ngIf="post">
         <h2>Último Post</h2>
         <div class="blog-info">
-            <div class="blog-image"></div>
+            <img class="blog-image" [src]="post.imageUrl" alt="Blog image">
             <div class="blog-content">
                 <div class="blog-header">
                     <div class="tags">
-                        <p>#java</p>
-                        <p>#tree</p>
+                        <p *ngFor="let tag of post.tags">#{{ tag }}</p>
                     </div>
                     <div class="hightlight">
                         <p>Destacado</p>
                     </div>
                 </div>
                 <div class="blog-title">
-                    <h3>Implementación de árboles binarios en Java</h3>
+                    <h3>{{post.title}}</h3>
                 </div>
                 <div class="blog-basic-info">
-                    <p>15 min de lectura - JUN 31, 2024</p>
+                    <p>{{ post.created | date:'MMM, dd - yyyy' }} • {{post.minutesToRead}} min de lectura</p>
                 </div>
                 <div class="blog-description">
-                    Descubre cómo construir una estructura árborea en Java: desde la definición de nodos hasta la implementación de métodos clave. 
-                    ¡Aprende cómo organizar datos de manera jerárquica de manera eficiente! 🌳
+                    <p>{{ post.description }}</p>
                 </div>
             </div>
         </div>

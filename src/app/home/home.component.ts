@@ -1,15 +1,30 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { CardComponent } from '../card/card.component';
+import { PostResponse } from '../../interfaces/interfaces';
+import { UserService } from '../user.service';
+import { DatePipe } from '@angular/common';
+
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [CommonModule, CardComponent],
+  imports: [CommonModule, CardComponent, CommonModule],
+  providers: [DatePipe],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css'
 })
-export class HomeComponent{
+export class HomeComponent implements OnInit {
+
+  post: PostResponse | undefined;
+
+  constructor(private userService: UserService) { }
+
+  ngOnInit(): void {
+    this.userService.getLatestPost().subscribe((post) => {
+      this.post = post;
+    });
+  }
 
   personalInfos = [
     {

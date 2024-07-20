@@ -54,7 +54,7 @@
             </div>
         </div>
     </div>        
-    <div class="blog" *ngIf="post">
+    <div class="blog" *ngIf="post" (click)="goToPost(post.id)">
         <h2>Último Post</h2>
         <div class="blog-info">
             <div class="blog-image">

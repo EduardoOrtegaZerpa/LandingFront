@@ -5,6 +5,7 @@ import { PostResponse } from '../../interfaces/interfaces';
 import { UserService } from '../user.service';
 import { DatePipe } from '@angular/common';
 import { MouseDetectionService } from '../mouse-detection.service';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -21,7 +22,10 @@ export class HomeComponent implements OnInit {
   hasMouse: boolean = false;
 
 
-  constructor(private userService: UserService, private mouseDetectionService: MouseDetectionService) { }
+  constructor(
+    private userService: UserService, 
+    private router: Router,
+    private mouseDetectionService: MouseDetectionService) { }
 
   ngOnInit(): void {
     this.userService.getLatestPost().subscribe((post) => {
@@ -41,11 +45,11 @@ export class HomeComponent implements OnInit {
     },
     {
       title: 'Recorrido',
-      content: 'Con más de 5 años inmerso en el fascinante mundo de la programación, he tenido el privilegio de explorar una amplia gama de entornos, desde el dinámico desarrollo web y la creación de software, hasta la intrincada ingeniería de sistemas en Linux y el desafiante lenguaje C. Mi trayectoria refleja una pasión por la excelencia tanto en los aspectos más visibles como en los más profundos de la programación.'
+      content: 'Con más de 5 años involucrado en el mundo de la programación, he tenido la capacidad de explorar una amplia gama de entornos, desde el dinámico desarrollo web y la creación de software, hasta la intrincada ingeniería de sistemas en Linux y el desafiante lenguaje C. A lo largo de mi trayectoria he mostrado una pasión por la excelencia tanto en los aspectos más visibles como en los más profundos de la programación.'
     },
     {
       title: 'Cualidades',
-      content: 'Soy un líder colaborativo, organizado y comprometido con el éxito del equipo. Mi habilidad para comunicarme eficazmente y trabajar en armonía con otros asegura que alcancemos nuestras metas de manera efectiva y eficiente.'
+      content: 'Con capacidad de liderazgo y organización, además de ser comprometido con el éxito del equipo. Mi habilidad para comunicarme eficazmente y trabajar en armonía con otros asegura que alcancemos nuestras metas de manera efectiva y eficiente.'
     }
   ];
 
@@ -60,5 +64,10 @@ export class HomeComponent implements OnInit {
   resetActive(): void {
     this.activeIndex = 4;
   }
+
+  goToPost(id: number) {
+    this.router.navigate([`/blog/${id}`]);
+  }
+
 
 }

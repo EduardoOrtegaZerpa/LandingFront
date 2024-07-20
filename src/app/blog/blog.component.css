@@ -31,6 +31,7 @@ h1 {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+    gap: 40px;
 }
 
 .filters {
@@ -63,6 +64,7 @@ h3 {
     border-radius: 25px;
     color: white;
     cursor: pointer;
+    word-break: break-all;
 }
 
 .selected {
@@ -223,10 +225,65 @@ h3 {
     
 }
 
+@media screen and (max-width: 1000px) {
+
+    .utilities {
+        flex-direction: column;
+    }
+}
+
 @media screen and (max-width: 600px) {
+
+    .main {
+        padding: 40px;
+    }
 
     .vertical {
         min-width: fit-content;
+    }
+
+    h1 {
+        font-size: 3em;
+        text-align: center;
+    }
+
+    .filters-buttons {
+        justify-content: center;
+    }
+    
+}
+
+@media screen and (max-width: 500px) {
+
+    h1 {
+        font-size: 2em;
+    }
+
+    .main {
+        padding: 30px;
+    }
+    
+    .post-header h3{
+        font-size: x-large;
+    }
+
+    .post-footer .info{
+        font-size: small;
+    }
+
+    .tags{
+        grid-template-columns: 1fr;
+    }
+
+    .tag, .latest-text{
+        padding: 5px 10px;
+    }
+}
+
+@media screen and (max-width: 400px) {
+
+    .filter {
+        width: -webkit-fill-available;
     }
     
 }

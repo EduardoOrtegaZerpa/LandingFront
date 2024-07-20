@@ -1,7 +1,7 @@
 <main>
 
     <div class="popups" [ngClass]="{'non-visible': loadingService.isLoading$() | async}">
-        <app-notification *ngIf="notificationService.isNotificationShown()"></app-notification>
+        <app-notification *ngIf="notificationService.isNotificationShown() | async"></app-notification>
       </div>
 
     <div id="loader" *ngIf="loadingService.isLoading$() | async">

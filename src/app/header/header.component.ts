@@ -17,10 +17,15 @@ export class HeaderComponent implements OnInit {
   ) {}
 
   loggedIn: boolean = false;
+  isMenuOpen = false;
 
   ngOnInit(): void {
     this.loginService.loginStatus$().subscribe((loggedIn: boolean) => {
         this.loggedIn = loggedIn;
     });
+  }
+
+  toggleMenu() {
+    this.isMenuOpen = !this.isMenuOpen;
   }
 }

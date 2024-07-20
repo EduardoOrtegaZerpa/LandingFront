@@ -14,8 +14,8 @@ export class NotificationService {
 
   show(message: string, error: boolean) {
     this.notificationMessageSubject.next(message);
-    this.notificationSubject.next(true);
     this.isErrorSubject.next(error);
+    this.notificationSubject.next(true);
   }
 
   hide() {

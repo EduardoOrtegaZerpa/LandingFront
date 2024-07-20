@@ -52,6 +52,7 @@ export class AppComponent implements OnInit, AfterViewInit{
     this.isLoading.subscribe(() => {
       this.cdr.detectChanges();
     }); 
+
   }
 
   ngAfterViewInit() {

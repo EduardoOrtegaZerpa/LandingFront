@@ -16,7 +16,7 @@ p {
 }
 
 input {
-    width: 100%;
+    width: -webkit-fill-available;
     padding: 10px;
     border: none;
     border-radius: 25px;
@@ -82,4 +82,38 @@ button {
     display: flex;
     gap: 10px;
     color: white;
+}
+
+@media screen and (max-width: 768px) {
+    footer {
+        flex-direction: column;
+        gap: 20px;
+        padding: 40px;
+    }
+
+    .info {
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .profile {
+        flex-direction: row;
+        align-items: center;
+    }
+
+    .profile-info {
+        flex-direction: row;
+        gap: 10px;
+    }
+
+    .profile-image {
+        width: 80px;
+        height: 80px;
+    }
+
+    .buttons {
+        flex-direction: column;
+        gap: 10px;
+    }
+    
 }

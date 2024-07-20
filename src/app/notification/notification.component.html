@@ -1,4 +1,8 @@
-<div class="notification" [ngClass]="{'show': isShown, 'hide': animateOut, 'error': isError, 'success': !isError}" >
+<div 
+  class="notification" 
+  [ngClass]="{'show': isShown, 'hide': animateOut, 'error': isError, 'success': !isError}"
+  *ngIf="isShown"
+  >
   <div class="notification-content">
     <p>{{ message }}</p>
     <button (click)="close()">Cerrar</button>

@@ -1,11 +1,12 @@
 import { Component } from '@angular/core';
 import { UserService } from '../user.service';
 import { NotificationService } from '../notification/notification.service';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-footer',
   standalone: true,
-  imports: [],
+  imports: [CommonModule],
   templateUrl: './footer.component.html',
   styleUrl: './footer.component.css'
 })

@@ -89,7 +89,6 @@ h3 {
     flex-direction: row;
     flex-wrap: wrap;
     gap: 40px;
-    justify-content: space-between;
 }
 
 .post {
@@ -113,12 +112,13 @@ h3 {
 
 .horizontal {
     flex: 2;
-    max-width: 80%;
+    min-width: 600px;
 }
 
 .vertical {
     flex: 1;
-    max-width: 20%;
+    max-width: 300px;
+    min-width: 300px;
 }
 
 .post-header {
@@ -141,12 +141,13 @@ h3 {
 
 .post-footer {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     color: black;
     gap: 15px;
     width: fit-content;
     border-bottom-right-radius: 15px;
     border-bottom-left-radius: 15px;
+    max-width: 80%;
 }
 
 .post-latest {
@@ -174,8 +175,8 @@ h3 {
 }
 
 .tags {
-    display: flex;
-    flex-direction: row;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
     gap: 10px;
 }
 
@@ -201,11 +202,31 @@ h3 {
     font-size: large;
 }
 
-
 .info {
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: center;
     opacity: 70%;
+}
+
+@media screen and (max-width: 1600px) {
+
+    .vertical {
+        max-width:none;
+
+    }
+
+    .horizontal {
+        min-width: fit-content;
+    }
+    
+}
+
+@media screen and (max-width: 600px) {
+
+    .vertical {
+        min-width: fit-content;
+    }
+    
 }

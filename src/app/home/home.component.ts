@@ -4,6 +4,7 @@ import { CardComponent } from '../card/card.component';
 import { PostResponse } from '../../interfaces/interfaces';
 import { UserService } from '../user.service';
 import { DatePipe } from '@angular/common';
+import { MouseDetectionService } from '../mouse-detection.service';
 
 
 @Component({
@@ -17,12 +18,19 @@ import { DatePipe } from '@angular/common';
 export class HomeComponent implements OnInit {
 
   post: PostResponse | undefined;
+  hasMouse: boolean = false;
 
-  constructor(private userService: UserService) { }
+
+  constructor(private userService: UserService, private mouseDetectionService: MouseDetectionService) { }
 
   ngOnInit(): void {
     this.userService.getLatestPost().subscribe((post) => {
       this.post = post;
+    });
+
+    this.mouseDetectionService.mouseDetected$.subscribe((hasMouse) => {
+      console.log('Mouse detected:', hasMouse);
+      this.hasMouse = hasMouse;
     });
   }
 

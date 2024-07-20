@@ -4,12 +4,12 @@
     flex: 1;
 }
 
-body {
+.home {
     margin: 0;
     flex: 1;
 }
 
-body > * {
+.home > *:not(.main) {
     padding: 40px 80px;
 }
 
@@ -21,6 +21,7 @@ h1 {
 p{
     color: white;
     font-size: x-large;
+    text-align: justify;
 }
 
 a{
@@ -32,7 +33,18 @@ a{
 
 .main{
     display: flex;
+    align-items: center;
     gap: 40px;
+    padding: 0px 80px;
+}
+
+@keyframes move {
+    0% {
+      background-position: 0 0;
+    }
+    100% {
+      background-position: 40px 40px;
+    }
 }
 
 .info{
@@ -49,12 +61,19 @@ a{
 }
 
 .image-general{
+    margin-top: auto;
+    display: flex;
+    justify-content: flex-end;
     flex: 4;
+    
 }
 
-.image-about{
-    flex: 2;
+.image-general img{
+    width: auto;
+    height: 50vh;
+    object-fit: cover;
 }
+
 
 .buttons{
     display: flex;
@@ -79,13 +98,27 @@ a{
     display: flex;
     flex-direction: column;
     gap: 60px;
-    background-color: rgba(0, 0, 0, 0.2);
+    /* background-color: rgba(0, 0, 0, 0.2); */
     border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+    background: #0a334da0; /* Fallback for browsers that don't support gradients */
+    background: linear-gradient(
+      135deg,
+      #0a334da0 25%,
+      #12264d2f 25%,
+      #12264d2f 50%,
+      #0a334da0 50%,
+      #0a334da0 75%,
+      #12264d2f 75%,
+      #12264d2f
+    );
+    background-size: 20px 20px;
+  
+    /* Animation */
+    animation: move 4s linear infinite;
 }
 
 .about-main{
     display: flex;
-    gap: 40px;
 }
 
 .cards {
@@ -98,7 +131,7 @@ a{
 .personal-info-container {
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    gap: 40px;
 }
 
 .personal-info {
@@ -106,12 +139,21 @@ a{
     align-items: center;
     opacity: 0.5;
     color: #FAFAFA;
-    height: 100px;
+    /* height: 100px; */
+    transition: opacity 1s ease, color 1s ease, font-size 1s ease, margin 1s ease;
+    gap: 40px;
+    padding: 30px;
+}
+
+.personal-info.mobile {
+    opacity: 1;
 }
 
 .personal-info.active {
     opacity: 1;
-    transition: opacity 1s ease, color 1s ease, font-size 1s ease;
+    transition: opacity 1s ease, color 1s ease, font-size 1s ease, margin 1s ease;
+    margin: 20px 0px;
+
 }
 
 .personal-info h2 {
@@ -132,7 +174,7 @@ a{
 
 .personal-info.active p {
     color: #C3FFFF;
-    font-size: xx-large;
+    font-size: x-large;
     transition: color 1s ease;
 }
 
@@ -151,16 +193,20 @@ a{
 
 .blog-info{
     display: flex;
-    width: 100%;
-    height: 400px;
     gap: 60px;
 }
 
 .blog-image{
-    /* background-color: white;
-    flex: 1;  */
-    max-width: 50%;
+    display: flex;
+    /* max-width: 100%; */
 }
+
+.blog-image img{
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+}
+
 
 .blog-content{
     display: flex;
@@ -172,20 +218,25 @@ a{
 .blog-header{
     display: flex;
     justify-content: space-between;
+    gap: 20px;
 }
 
 .tags{
     display: flex;
+    flex: 1;
+    flex-wrap: wrap;
     gap: 10px;
+    align-items: center;
 }
 
 .hightlight{
-    background-color: rgba(255, 255, 255, 0.2);
+    background-color: #A1FF99;
     padding: 10px;
+    height: fit-content;
 }
 
 .hightlight p{
-    color: #A1FF99;
+    color: #053b00;
     font-size: large;
 }
 
@@ -207,4 +258,186 @@ a{
 .blog-description p{
     color: gainsboro;
     font-size: larger;
+}
+
+@media screen and (max-width: 1600px){
+    .image-general img{
+        height: 40vh;
+    }
+    
+}
+
+@media screen and (max-width: 1200px){
+    .cards {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    h1 {
+        font-size: xx-large;
+    }
+
+    p{
+        font-size: large;
+    }
+    
+    .image-general img{
+        height: 30vh;
+    }
+    
+    .buttons{
+        font-size: large;
+    }
+
+    .contact-button{
+        font-size: medium;
+    }
+
+    .personal-info h2 {
+        font-size: large;
+    }
+
+    .personal-info.active h2 {
+        font-size: x-large;
+    }
+
+    .personal-info.active p {
+        font-size: large;
+    }
+
+    .personal-info p {
+        font-size: medium;
+    }
+
+    .blog h2{
+        font-size: x-large;
+    }
+
+    .blog-title{
+        font-size: x-large;
+    }
+
+    .blog-basic-info p{
+        font-size: small;
+    }
+
+    .blog-description p{
+        font-size: medium;
+    }
+
+    .hightlight p{
+        font-size: medium;
+    }
+
+    .tags p{
+        font-size: medium;
+    }
+
+    .blog-content{
+        gap: 10px;
+    }
+}
+
+@media screen and (max-width: 1000px) {
+    .image-general {
+        display: none;
+    }
+
+    .main{
+        padding: 40px 80px;
+    }
+
+    .info{
+        margin: 0px;
+        text-align: center;
+    }
+
+    .home > * {
+        padding: 20px 40px !important; 
+    }
+
+    .personal-info {
+        gap: 20px;
+        padding: 20px;
+    }
+
+    .personal-info.active {
+        margin: 10px 0px;
+    }
+
+    .personal-info-container {
+        gap: 20px;
+    }
+    
+    
+}
+
+@media screen and (max-width: 800px){
+
+    .blog-info{
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .blog-image{
+        justify-content: center;
+    }
+
+    .blog h2{
+        font-size: large;
+        text-align: center;
+    }
+
+    .blog-title{
+        font-size: large;
+    }
+
+    .blog-basic-info p{
+        font-size: small;
+    }
+
+    .blog-description p{
+        font-size: medium;
+    }
+
+    .hightlight {
+        display: none;
+    }
+
+    .tags p{
+        font-size: medium;
+    }
+
+    .blog-content{
+        gap: 10px;
+    }
+}
+
+@media screen and (max-width: 650px){
+
+    .cards {
+        grid-template-columns: 1fr;
+    }
+
+    .personal-info {
+        flex-direction: column;
+        gap: 20px;
+        padding: 10px;
+        text-align: center;
+    }
+
+    p {
+        text-align: center;
+    }
+
+    .blog-description p, .blog-basic-info p{
+        text-align: start;
+    }
+
+}
+
+@media screen and (max-width: 500px){
+
+    .buttons{
+        flex-direction: column;
+    }
 }

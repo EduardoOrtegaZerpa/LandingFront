@@ -1,4 +1,4 @@
-<body>
+<div class="home">
     <div class="main">
         <div class="info">
             <div class="text">
@@ -17,7 +17,9 @@
                 </a>
             </div>
         </div>
-        <div class="image-general"></div>
+        <div class="image-general">
+            <img src="/assets/img/home-silueta.png">
+        </div>
     </div>
     <div class="about">
         <div class="about-main">
@@ -30,7 +32,6 @@
                     </p>
                 </div>
             </div>
-            <div class="image-about"></div>
         </div>
 
         <div class="cards">
@@ -46,7 +47,8 @@
             <div class="personal-info" *ngFor="let info of personalInfos; let i = index"
                  [class.active]="i === activeIndex"
                  (mouseenter)="setActive(i)"
-                 (mouseleave)="resetActive()">
+                 (mouseleave)="resetActive()"
+                 [ngClass]="{'mobile': !hasMouse}">
                 <h2>{{ info.title }}</h2>
                 <p><span class="text-content">{{ info.content }}</span></p>
             </div>
@@ -55,7 +57,9 @@
     <div class="blog" *ngIf="post">
         <h2>Último Post</h2>
         <div class="blog-info">
-            <img class="blog-image" [src]="post.imageUrl" alt="Blog image">
+            <div class="blog-image">
+                <img [src]="post.imageUrl" alt="Blog image">
+            </div>
             <div class="blog-content">
                 <div class="blog-header">
                     <div class="tags">
@@ -77,4 +81,4 @@
             </div>
         </div>
     </div>
-</body>
+</div>

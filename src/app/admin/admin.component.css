@@ -26,3 +26,14 @@
     background-color: rgba(0, 0, 0, 0.3);
     border: 1px solid rgba(255, 255, 255, 0.7);
 }
+
+@media screen and (max-width: 1800px){
+    .admin{
+        flex-direction: column;
+        padding: 20px 20px;
+    }
+    .options{
+        gap: 20px;
+    }
+    
+}

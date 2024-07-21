@@ -139,6 +139,7 @@ textarea {
     border-radius: 5px;
     overflow: hidden;
     text-overflow: ellipsis;
+    text-align: center;
 }
 
 .selected {
@@ -166,4 +167,53 @@ textarea {
 .disabled {
     background-color: #f0f0f0;
     cursor: not-allowed;
+}
+
+@media screen and (max-width: 800px){
+    .create, .edit {
+        padding: 20px;
+    }
+    .create h1, .edit h1 {
+        font-size: x-large;
+        margin-bottom: 20px;
+    }
+    .form-option label {
+        font-size: large;
+    }
+    .form-option input,
+    .form-option textarea,
+    .form-option select {
+        font-size: medium;
+        padding: 5px;
+    }
+    button {
+        padding: 10px;
+    }
+    .file-label {
+        padding: 5px 10px;
+    }
+    .selected {
+        max-width: 100px;
+    }
+    .error-message {
+        font-size: small;
+    }
+    
+}
+
+@media screen and (max-width: 600px){
+    .form-option-content {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .form-option-content {
+        align-items: normal;
+    }
+
+    .form-option input,
+    .form-option textarea,
+    .form-option select {
+        font-size: small;
+    }
 }

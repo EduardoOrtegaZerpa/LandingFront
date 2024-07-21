@@ -41,47 +41,110 @@ export class TrajectoryComponent implements OnInit {
     const styles = `
       <style>
         .trajectory-content h1 {
-          font-size: 3rem;
-          margin-top: 1rem;
-          margin-bottom: 1rem;
-        }
-        .trajectory-content h2 {
           font-size: 2.5rem;
           margin-top: 1rem;
           margin-bottom: 1rem;
+          word-break: break-all;
+        }
+        .trajectory-content h2 {
+          font-size: 2.2rem;
+          margin-top: 1rem;
+          margin-bottom: 1rem;
+          word-break: break-all;
         }
         .trajectory-content h3 {
-          margin-bottom: 2rem;
-          margin-top: 1rem;
-          font-size: x-large;
-        }
-        .trajectory-content h4 {
           margin-bottom: 1.8rem;
           margin-top: 1rem;
-          font-size: large;
+          font-size: 1.5rem;
+          word-break: break-all;
         }
-        .trajectory-content ul {
+        .trajectory-content h4 {
+          margin-bottom: 1.6rem;
+          margin-top: 1rem;
+          font-size: 1.2rem;
+          word-break: break-all;
+        }
+        .trajectory-content ul, .trajectory-content ol {
           margin-bottom: 1rem;
           margin-top: 1rem;
+          margin-left: 1.4rem;
           list-style: circle;
-          margin-left: 1.5rem;
-        }
-        .trajectory-content ol {
-          margin-bottom: 1rem;
-          margin-top: 1rem;
-          list-style-type: decimal;
         }
         .trajectory-content li {
           margin-bottom: 0.5rem;
-          list-style-type: decimal;
           font-size: 1.4rem;
+          list-style-type: decimal;
+          word-break: break-all;
         }
         .trajectory-content p {
           font-size: 1.4rem;
-          overflow-wrap: break-word;
+          word-break: break-all;
         }
 
-        
+        @media (max-width: 900px) {
+          .trajectory-content h1 {
+            font-size: 2.2rem;
+          }
+          .trajectory-content h2 {
+            font-size: 2rem;
+          }
+          .trajectory-content h3 {
+            font-size: 1.8rem;
+          }
+          .trajectory-content h4 {
+            font-size: 1.5rem;
+          }
+          .trajectory-content p {
+            font-size: 1.2rem;
+          }
+          .trajectory-content li {
+            font-size: 1.2rem;
+          }
+        }
+
+        @media (max-width: 600px) {
+          .trajectory-content h1 {
+            font-size: 1.8rem;
+          }
+          .trajectory-content h2 {
+            font-size: 1.6rem;
+          }
+          .trajectory-content h3 {
+            font-size: 1.4rem;
+          }
+          .trajectory-content h4 {
+            font-size: 1.2rem;
+          }
+          .trajectory-content p {
+            font-size: 1rem;
+          }
+          .trajectory-content li {
+            font-size: 1rem;
+          }
+        }
+
+        @media (max-width: 400px) {
+          .trajectory-content h1 {
+            font-size: 1.3rem;
+          }
+          .trajectory-content h2 {
+            font-size: 1.2rem;
+          }
+          .trajectory-content h3 {
+            font-size: 1.1rem;
+          }
+          .trajectory-content h4 {
+            font-size: 1rem;
+          }
+          .trajectory-content p {
+            font-size: 0.8rem;
+          }
+          .trajectory-content li {
+            font-size: 0.8rem;
+          }
+        }
+
+
       </style>
     `;
 

@@ -3,6 +3,7 @@ import { LoginService } from './login.service';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
+import { NotificationService } from '../notification/notification.service';
 
 
 @Component({
@@ -16,7 +17,12 @@ export class LoginComponent {
 
   loginForm: FormGroup;
 
-  constructor(private fb: FormBuilder, private loginService: LoginService, private router: Router) {
+  constructor(
+    private fb: FormBuilder,
+    private notificationService: NotificationService,
+    private loginService: LoginService, 
+    private router: Router
+  ) {
     this.loginForm = this.fb.group({
       username: ['', Validators.required],
       password: ['', Validators.required]
@@ -37,7 +43,7 @@ export class LoginComponent {
         this.resetInputs();
         this.router.navigate(['/']);
       } else {
-        this.resetInputs();
+        this.notificationService.show('Error when logging in', true);
       }
     });
   }

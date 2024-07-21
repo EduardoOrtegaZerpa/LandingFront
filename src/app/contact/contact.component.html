@@ -25,6 +25,13 @@
                     </div>
                 </div>
                 <div class="input">
+                    <label for="subject">Subject</label>
+                    <input type="text" id="subject" formControlName="subject" placeholder="Introduzca un asunto...">
+                    <div *ngIf="contactForm.get('subject')?.invalid && (contactForm.get('subject')?.dirty || contactForm.get('subject')?.touched)" class="error">
+                        <div *ngIf="contactForm.get('message')?.errors?.['required']">El asunto es requerido.</div>
+                    </div>
+                </div>
+                <div class="input">
                     <label for="message">Mensaje</label>
                     <textarea id="message" formControlName="message" placeholder="Dime que tienes en mente..."></textarea>
                     <div *ngIf="contactForm.get('message')?.invalid && (contactForm.get('message')?.dirty || contactForm.get('message')?.touched)" class="error">

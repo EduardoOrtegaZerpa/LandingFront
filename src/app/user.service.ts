@@ -92,4 +92,15 @@ export class UserService {
       })
     );
   }
+
+  sendContactMail(from: string, subject: string, text: string, name: string): Observable<boolean> {
+    return this.http.post<any>('http://localhost:8080/sendMail', { from, subject, text, name }).pipe(
+      map(() => {
+        return true;
+      }),
+      catchError((error) => {
+        return of(false);
+      })
+    );
+  }
 }

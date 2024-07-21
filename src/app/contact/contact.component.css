@@ -139,4 +139,66 @@ textarea {
 textarea::placeholder {
     color: #FAFAFA;
 }
+
+.error {
+    color: red;
+    font-size: 12px;
+    margin-top: 5px;
+}
+  
+  
+.inputs button[disabled] {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
+
+@media screen and (max-width: 1600px) {
+
+    .image {
+        height: 30vh;
+    }
+    
+}
+
+
+@media screen and (max-width: 1200px) {
+
+    .image {
+        display: none;
+    }
+
+    h1 {
+        font-size: 2rem;
+    }
+
+    h3 {
+        font-size: 1.2em;
+    }
+
+    .inputs button {
+        align-self: flex-end;
+    }
+}
+
+@media screen and (max-width: 600px) {
+
+    .contact {
+        padding: 30px;
+        gap: 20px;
+    }
+
+    h2 {
+        font-size: 1.5rem;
+    }
+
+    h3 {
+        font-size: 1rem;
+    }
+
+    label {
+        font-size: 1rem;
+    }
+    
+}
+
   

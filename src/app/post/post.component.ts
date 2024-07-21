@@ -46,52 +46,109 @@ export class PostComponent {
     const styles = `
       <style>
         .post-content h1 {
-          font-size: 3rem;
-          margin-top: 1rem;
-          margin-bottom: 1rem;
-        }
-        .post-content h2 {
           font-size: 2.5rem;
           margin-top: 1rem;
           margin-bottom: 1rem;
         }
-        .post-content h3 {
-          margin-bottom: 2rem;
+        .post-content h2 {
+          font-size: 2.2rem;
           margin-top: 1rem;
-          font-size: x-large;
+          margin-bottom: 1rem;
         }
-        .post-content h4 {
+        .post-content h3 {
           margin-bottom: 1.8rem;
           margin-top: 1rem;
-          font-size: large;
+          font-size: 1.5rem;
         }
-        .post-content ul {
+        .post-content h4 {
+          margin-bottom: 1.6rem;
+          margin-top: 1rem;
+          font-size: 1.2rem;
+        }
+        .post-content ul, .post-content ol {
           margin-bottom: 1rem;
           margin-top: 1rem;
+          margin-left: 1.4rem;
           list-style: circle;
-          margin-left: 1.5rem;
-        }
-        .post-content ol {
-          margin-bottom: 1rem;
-          margin-top: 1rem;
-          list-style-type: decimal;
         }
         .post-content li {
           margin-bottom: 0.5rem;
-          list-style-type: decimal;
           font-size: 1.4rem;
+          list-style-type: decimal;
         }
         .post-content p {
           font-size: 1.4rem;
           overflow-wrap: break-word;
         }
 
-        
+        @media (max-width: 900px) {
+          .post-content h1 {
+            font-size: 2.2rem;
+          }
+          .post-content h2 {
+            font-size: 2rem;
+          }
+          .post-content h3 {
+            font-size: 1.8rem;
+          }
+          .post-content h4 {
+            font-size: 1.5rem;
+          }
+          .post-content p {
+            font-size: 1.2rem;
+          }
+          .post-content li {
+            font-size: 1.2rem;
+          }
+        }
+
+        @media (max-width: 600px) {
+          .post-content h1 {
+            font-size: 1.8rem;
+          }
+          .post-content h2 {
+            font-size: 1.6rem;
+          }
+          .post-content h3 {
+            font-size: 1.4rem;
+          }
+          .post-content h4 {
+            font-size: 1.2rem;
+          }
+          .post-content p {
+            font-size: 1rem;
+          }
+          .post-content li {
+            font-size: 1rem;
+          }
+        }
+
+        @media (max-width: 400px) {
+          .post-content h1 {
+            font-size: 1.3rem;
+          }
+          .post-content h2 {
+            font-size: 1.2rem;
+          }
+          .post-content h3 {
+            font-size: 1.1rem;
+          }
+          .post-content h4 {
+            font-size: 1rem;
+          }
+          .post-content p {
+            font-size: 0.8rem;
+          }
+          .post-content li {
+            font-size: 0.8rem;
+          }
+        }
+
+
       </style>
     `;
 
     return this.sanitizer.bypassSecurityTrustHtml(styles + html);
   }
-
 
 }

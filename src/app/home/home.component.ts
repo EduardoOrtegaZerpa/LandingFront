@@ -7,7 +7,6 @@ import { DatePipe } from '@angular/common';
 import { MouseDetectionService } from '../mouse-detection.service';
 import { Router } from '@angular/router';
 
-
 @Component({
   selector: 'app-home',
   standalone: true,

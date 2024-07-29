@@ -1,0 +1,14 @@
+<div class="slider-container">
+  <div class="slider-content">
+    <div *ngFor="let image of images; let i = index" class="slider-item" [style.display]="i === slideIndex ? 'block' : 'none'">
+      <img *ngIf="image" [src]="image.imageUrl" [alt]="image.title">
+      <div class="image-title" (click)="goToProject(image.id)">
+        <a target="_blank">{{ image.title }}</a>
+      </div>
+    </div>
+  </div>
+  <div class="slider-controls">
+    <button class="slider-control" (click)="plusSlides(-1)">&#10094;</button>
+    <button class="slider-control" (click)="plusSlides(1)">&#10095;</button>
+  </div>
+</div>

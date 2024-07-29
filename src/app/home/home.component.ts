@@ -6,11 +6,13 @@ import { UserService } from '../user.service';
 import { DatePipe } from '@angular/common';
 import { MouseDetectionService } from '../mouse-detection.service';
 import { Router } from '@angular/router';
+import { SliderComponent } from '../slider/slider.component';
+import { SliderService, SliderImage } from '../slider/slider.service';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [CommonModule, CardComponent, CommonModule],
+  imports: [CommonModule, CardComponent, CommonModule, SliderComponent],
   providers: [DatePipe],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css'
@@ -24,6 +26,7 @@ export class HomeComponent implements OnInit {
   constructor(
     private userService: UserService, 
     private router: Router,
+    private sliderService: SliderService,
     private mouseDetectionService: MouseDetectionService) { }
 
   ngOnInit(): void {
@@ -31,8 +34,14 @@ export class HomeComponent implements OnInit {
       this.post = post;
     });
 
+    this.userService.getProjects().subscribe((projects) => {
+      if (projects) {
+        const sliderImages: SliderImage[] = projects.map((project) => ({ id: project.id, title: project.title, imageUrl: project.imageUrl }));
+        this.sliderService.setImages(sliderImages);
+      }
+    });
+
     this.mouseDetectionService.mouseDetected$.subscribe((hasMouse) => {
-      console.log('Mouse detected:', hasMouse);
       this.hasMouse = hasMouse;
     });
   }

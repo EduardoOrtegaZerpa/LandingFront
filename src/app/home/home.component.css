@@ -29,12 +29,13 @@ a{
     align-items: center;
     justify-content: center;
     gap: 6px;
+    width: fit-content;
 }
 
 .main{
     display: flex;
     align-items: center;
-    gap: 40px;
+    gap: 120px;
     padding: 0px 80px;
 }
 
@@ -64,14 +65,22 @@ a{
     margin-top: auto;
     display: flex;
     justify-content: flex-end;
-    flex: 4;
-    
 }
 
 .image-general img{
     width: auto;
     height: 50vh;
     object-fit: cover;
+}
+
+.slider {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    align-items: center;
+    flex: 2;
+    height: 40vh;
+    box-shadow: 0px 0px 10px 5px rgba(0, 0, 0, 0.5);
 }
 
 
@@ -105,7 +114,7 @@ a{
     gap: 60px;
     /* background-color: rgba(0, 0, 0, 0.2); */
     border-bottom: 1px solid rgba(255, 255, 255, 0.3);
-    background: #0a334da0; /* Fallback for browsers that don't support gradients */
+    background: #0a334da0;
     background: linear-gradient(
       135deg,
       #0a334da0 25%,
@@ -276,7 +285,15 @@ a{
 
 @media screen and (max-width: 1600px){
     .image-general img{
-        height: 40vh;
+        height: 30vh;
+    }
+
+    .slider {
+        height: 25vh;
+    }
+
+    .main {
+        gap: 60px;
     }
     
 }
@@ -295,7 +312,11 @@ a{
     }
     
     .image-general img{
-        height: 30vh;
+        height: 20vh;
+    }
+
+    .slider {
+        height: 15vh;
     }
     
     .buttons{
@@ -387,6 +408,17 @@ a{
 
 @media screen and (max-width: 800px){
 
+    .main{
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .slider {
+        height: 25vh;
+        width: 80vw;
+        flex: auto;
+    }
+
     .blog-info{
         flex-direction: column;
         gap: 20px;
@@ -454,5 +486,11 @@ a{
 
     .buttons{
         flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .contact-button{
+        width: 100%;
     }
 }

@@ -1,0 +1,156 @@
+:host {
+    width: 100%;
+    height: 100%;
+}
+
+.slider-container {
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+    height: 100%;
+    background-color: #f1f1f1;
+}
+
+.slider-content {
+    position: relative;
+    height: 100%;
+    width: 100%;
+}
+
+.slider-item {
+    position: relative;
+    height: 100%;
+    width: 100%;
+}
+
+.slider-controls {
+    display: none;
+    position: absolute;
+    width: 100%;
+    justify-content: space-between;
+    bottom: 0;
+    top: 0;  
+    align-items: center;
+    z-index: 3;
+}
+
+.slider-container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+.slider-container img {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transform: translate(-50%, -50%);
+}
+
+.slider-container::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: transparent;
+    transition: background-color 0.3s ease;
+    z-index: 1;
+}
+
+.slider-container:hover::before {
+    background-color: rgba(0, 0, 0, 0.7);
+}
+
+.slider-container img {
+    position: relative;
+    z-index: 0;
+}
+
+.slider-container:hover .slider-controls {
+    display: flex;
+}
+
+.slider-container:hover .image-title {
+    display: block;
+    background-color: rgba(255, 255, 255, 0.7);
+}
+
+.slider-container:hover .image-title a {
+    color: black;
+}
+
+
+.slider-controls button {
+    background-color: transparent;
+    border: none; 
+    margin: 0.75em 0.9375em; 
+    cursor: pointer; 
+    color: rgba(255, 255, 255, 0.7); 
+    font-size: 2.5rem;
+
+}
+
+.slider-controls button:hover {
+    color: white;
+    transition: color 0.3s ease; 
+}
+
+.image-title {
+    display: none;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translateX(-50%) translateY(-50%);
+    background-color: rgba(0, 0, 0, 0.8); 
+    color: white;
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    z-index: 4;
+    text-align: center;
+}
+
+.image-title a {
+    color: white; 
+    text-decoration: none;
+    font-size: 2vmin;
+    font-weight: bold;
+}
+
+.image-title:hover a {
+    text-decoration: underline;
+}
+
+@media screen and (max-width: 1600px) {
+    .image-title a {
+        font-size: medium;
+    }
+}
+
+@media screen and (max-width: 1200px) {
+    .slider-controls button {
+        font-size: 1.5rem;
+        margin: 0.5em 0.625em;
+    }
+    
+}
+
+@media screen and (max-width: 768px) {
+
+    .image-title {
+        padding: 7px;
+    }
+
+    .image-title a {
+        font-size: small;
+    }
+    
+}
+
+
+    

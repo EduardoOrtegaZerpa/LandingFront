@@ -53,7 +53,7 @@ export class ContactComponent {
     const name = this.contactForm.get('name')!.value;
     this.userService.sendContactMail(from, subject, message, name).subscribe((response) => {
       if (response) {
-        this.router.navigate(['/']);
+        this.notificationService.show('Email sent successfully', false);
         this.resetInputs();
       } else {
         this.notificationService.show('Error when sending the email', true);

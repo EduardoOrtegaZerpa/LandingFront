@@ -66,7 +66,7 @@
             <div class="blog-content">
                 <div class="blog-header">
                     <div class="tags">
-                        <p *ngFor="let tag of post.tags">#{{ tag }}</p>
+                        <p *ngFor="let tag of post.tags">#{{ tag.toLowerCase() }}</p>
                     </div>
                     <div class="hightlight">
                         <p>Destacado</p>

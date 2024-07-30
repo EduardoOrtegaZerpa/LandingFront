@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ElementRef, ViewChild } from '@angular/core';
 import { UserService } from '../user.service';
 import { NotificationService } from '../notification/notification.service';
 import { CommonModule } from '@angular/common';
@@ -17,6 +17,8 @@ export class FooterComponent {
     private notificationService: NotificationService
   ) {}
 
+  @ViewChild('emailInput') emailInput!: ElementRef<HTMLInputElement>;
+
   suscribe(email: string) {
     const isValid = this.validateEmail(email);
 
@@ -33,6 +35,7 @@ export class FooterComponent {
           this.notificationService.show('Error when subscribing to the newsletter', true);
         }
       });
+      this.emailInput.nativeElement.value = '';
     } else {
       this.notificationService.show('Invalid email', true);
     }

@@ -86,11 +86,24 @@ h3 {
     color: white;
 }
 
+.loading {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    width: 100%;
+    flex: 1;
+    min-height: 20vh;
+}
+
 .posts {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
     gap: 40px;
+    flex: 1;
 }
 
 .post {
@@ -104,10 +117,10 @@ h3 {
     min-height: 35vh;
     justify-content: flex-end;
     cursor: pointer;
+    background-color: #fafafa;
 }
 
 .post:hover {
-    background-color: rgba(0, 0, 0, 0.8);
     transform: scale(1.01);
     box-shadow: 0 0 10px 5px rgba(0, 0, 0, 0.5);
 }
@@ -188,6 +201,7 @@ h3 {
     padding: 10px 20px;
     border-radius: 25px;
     font-size: large;
+    word-break: break-all;
 }
 
 .white .tag, .white .latest-text {
@@ -251,6 +265,14 @@ h3 {
 
     .filters-buttons {
         justify-content: center;
+    }
+
+    .post-footer {
+        max-width: 60%;
+    }
+
+    .filter{
+        padding: 10px 20px;
     }
     
 }

@@ -2,18 +2,18 @@ import { CommonModule, DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { UserService } from '../user.service';
 import { PostResponse } from '../../interfaces/interfaces';
-import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
+import { LoadingComponent } from "../loading/loading.component";
 
 @Component({
   selector: 'app-blog',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, LoadingComponent, LoadingComponent],
   templateUrl: './blog.component.html',
-  styleUrl: './blog.component.css'
+  styleUrls: ['./blog.component.css']
 })
-export class BlogComponent implements OnInit{
+export class BlogComponent implements OnInit {
 
   blogPosts: PostResponse[] = [];
   filteredPosts: PostResponse[] = [];
@@ -23,48 +23,44 @@ export class BlogComponent implements OnInit{
   contrastColorMap: { [key: number]: string } = {};
   latestPost: PostResponse | undefined;
   searchTerm: string = '';
+  loading: boolean = false;
 
   constructor(
     private userService: UserService,
-    private router: Router,
-    private sanitizer: DomSanitizer
+    private router: Router
   ) { }
 
   ngOnInit() {
     this.getBlogPosts();
   }
 
-  sanitizeHtml(html: string): SafeHtml {
-    return this.sanitizer.bypassSecurityTrustHtml(html);
-  }
-
-  stylesHtml(html: string): SafeHtml {
-    const styles = `
-      <style>
-        h1 {
-          color: red;
-        }
-      </style>
-    `;
-
-    return this.sanitizer.bypassSecurityTrustHtml(styles + html);
-  }
-
-  getBlogPosts() {
-    this.userService.getPosts().subscribe(async (posts: PostResponse[] | undefined) => {
+  async getBlogPosts() {
+    this.loading = true;
+    try {
+      const posts = await this.userService.getPosts().toPromise();
       if (posts) {
         this.blogPosts = posts;
         this.getTags();
-        for (let post of posts) {
-          this.isHorizontalMap[post.id] = await this.isHorizontal(post.imageUrl);
-          this.contrastColorMap[post.id] = await this.getContrastColor(post.imageUrl);
-        }
+  
+        const promises = posts.map(async (post) => {
+          const { isHorizontal, contrastColor } = await this.processImage(post.imageUrl);
+          this.isHorizontalMap[post.id] = isHorizontal;
+          this.contrastColorMap[post.id] = contrastColor;
+        });
+  
+        await Promise.all(promises);
+  
         this.blogPosts = this.orderedPostsByImageOrientation();
         this.getLatest();
         this.filteredPosts = this.blogPosts;
       }
-    });
+    } catch (error) {
+      console.error('Error fetching blog posts:', error);
+    } finally {
+      this.loading = false;
+    }
   }
+
 
   getLatest() {
     this.latestPost = this.blogPosts.find((post: PostResponse) => post.created === this.blogPosts.reduce((a, b) => a.created > b.created ? a : b).created);
@@ -79,9 +75,55 @@ export class BlogComponent implements OnInit{
     }
   }
 
+  async getImageData(imageUrl: string): Promise<HTMLImageElement> {
+      const img = new Image();
+      img.crossOrigin = 'Anonymous'; // Maneja CORS
+      return new Promise<HTMLImageElement>((resolve, reject) => {
+        img.onload = () => resolve(img);
+        img.onerror = (error) => reject('Error loading image');
+        img.src = imageUrl;
+      });
+  }
+
+  async processImage(imageUrl: string): Promise<{ isHorizontal: boolean; contrastColor: string }> {
+    const img = await this.getImageData(imageUrl);
+  
+    const canvas = document.createElement('canvas');
+    canvas.width = img.width;
+    canvas.height = img.height;
+    const ctx = canvas.getContext('2d');
+    
+    if (!ctx) {
+      throw new Error('Cannot get canvas context');
+    }
+    
+    ctx.drawImage(img, 0, 0);
+    const imageData = ctx.getImageData(0, 0, img.width, img.height);
+    const data = imageData.data;
+    
+    let r, g, b, luminance;
+    let luminanceSum = 0;
+    
+    for (let x = 0; x < data.length; x += 4) {
+      r = data[x];
+      g = data[x + 1];
+      b = data[x + 2];
+      luminance = 0.2126 * r + 0.7152 * g + 0.0722 * b;
+      luminanceSum += luminance;
+    }
+    
+    const averageLuminance = luminanceSum / (data.length / 4);
+    const contrastColor = averageLuminance < 127.5 ? 'black' : 'white';
+    
+    const isHorizontal = img.width > img.height;
+    
+    return { isHorizontal, contrastColor };
+  }
+
   selectTag(tag: string) {
-    if (this.selectedTags.includes(tag)) {
-      this.selectedTags = this.selectedTags.filter((selectedTag: string) => selectedTag !== tag);
+    const tagIndex = this.selectedTags.indexOf(tag);
+    if (tagIndex > -1) {
+      this.selectedTags.splice(tagIndex, 1);
     } else {
       this.selectedTags.push(tag);
     }
@@ -89,10 +131,10 @@ export class BlogComponent implements OnInit{
   }
 
   orderedPostsByImageOrientation(): PostResponse[] {
-    const lastHorizontal = this.blogPosts.findIndex((post: PostResponse) => this.isHorizontalMap[post.id]);
-    if (lastHorizontal !== -1) {
-      const horizontal = this.blogPosts.splice(lastHorizontal, 1)[0];   
-      this.blogPosts.push(horizontal);
+    const horizontalPostIndex = this.blogPosts.findIndex(post => this.isHorizontalMap[post.id]);
+    if (horizontalPostIndex !== -1) {
+      const [horizontalPost] = this.blogPosts.splice(horizontalPostIndex, 1);
+      this.blogPosts.push(horizontalPost);
     }
     return this.blogPosts;
   }
@@ -102,83 +144,29 @@ export class BlogComponent implements OnInit{
   }
 
   getTags() {
-    this.blogPosts.forEach((post: PostResponse) => {
-      post.tags.forEach((tag: string) => {
-        if (!this.tags.includes(tag)) {
-          this.tags.push(tag);
-        }
-      });
-    });
-  }
-
-  getContrastColor(imageUrl: string): Promise<string> {
-    return new Promise((resolve) => {
-      const img = new Image();
-      img.crossOrigin = 'Anonymous';
-      img.onload = () => {
-        const canvas = document.createElement('canvas');
-        canvas.width = img.width;
-        canvas.height = img.height;
-        const ctx = canvas.getContext('2d');
-        if (ctx) {
-          ctx.drawImage(img, 0, 0, img.width, img.height);
-          const imageData = ctx.getImageData(0, 0, img.width, img.height);
-          const data = imageData.data;
-          let r, g, b, avg;
-          let colorSum = 0;
-
-          for (let x = 0, len = data.length; x < len; x += 4) {
-            r = data[x];
-            g = data[x + 1];
-            b = data[x + 2];
-            avg = Math.floor((r + g + b) / 3);
-            colorSum += avg;
-          }
-
-          if (!r || !g || !b) {
-            resolve('black');
-          }
-          const brightness = 0.2126 * (r ? r : 0) + 0.7152 * (g ? g : 0)  + 0.0722 * (b ? b : 0);
-          resolve(brightness < 127.5 ? 'white' : 'black');
-        }
-      };
-      img.src = imageUrl;
-    });
-  }
-
-  isHorizontal(imageUrl: string): Promise<boolean> {
-    return new Promise((resolve) => {
-      const img = new Image();
-      img.onload = () => {
-        resolve(img.width > img.height);
-      };
-      img.src = imageUrl;
-    });
+    const tagsSet = new Set<string>();
+    this.blogPosts.forEach(post => post.tags.forEach(tag => tagsSet.add(tag)));
+    this.tags = Array.from(tagsSet);
   }
 
   filterBlogPosts() {
-    //filter by tags
-    const filteredByTags = this.blogPosts.filter((post: PostResponse) => {
-      return this.selectedTags.length === 0 || post.tags.some((tag: string) => this.selectedTags.includes(tag));
-    });
+    const filteredByTags = this.blogPosts.filter(post =>
+      this.selectedTags.length === 0 || post.tags.some(tag => this.selectedTags.includes(tag))
+    );
 
-    //filter by search term
-    if (!this.searchTerm) {
+    if (this.searchTerm) {
+      this.filteredPosts = filteredByTags.filter(post =>
+        post.title.toLowerCase().includes(this.searchTerm.toLowerCase()) ||
+        post.description.toLowerCase().includes(this.searchTerm.toLowerCase())
+      );
+    } else {
       this.filteredPosts = filteredByTags;
-      return;
     }
-
-    const filteredBySearch = filteredByTags.filter((post: PostResponse) => {
-      return post.title.toLowerCase().includes(this.searchTerm.toLowerCase()) || post.description.toLowerCase().includes(this.searchTerm.toLowerCase());
-    });
-
-    this.filteredPosts = filteredBySearch;
   }
-  
+
   formatDate(dateString: string): string {
     const date = new Date(dateString);
     const datePipe = new DatePipe('en-US');
     return datePipe.transform(date, 'MMM d, y') || '';
   }
-
 }

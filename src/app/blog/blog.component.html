@@ -1,35 +1,40 @@
 <div class="blog">
     <div class="main">
-        <h1>BLOG</h1>
-        <div class="utilities">
-            <div class="filters">
-                <h2>FILTERS</h2>
-                <div class="filters-buttons">
-                    <button 
-                    (click)="selectTag(tag)" 
-                    *ngFor="let tag of tags"
-                    [ngClass]="{'selected': selectedTags.includes(tag)}"
-                    class="filter">{{ tag }}</button>
-                </div>
-            </div>
-            <div class="searching-bar">
-                <h2>SEARCH BLOG</h2>
-                <input type="text" placeholder="Search" [(ngModel)]="searchTerm" (input)="filterBlogPosts()">
-            </div>
+      <h1>BLOG</h1>
+      <div class="utilities">
+        <div class="filters">
+          <h2>FILTERS</h2>
+          <div class="filters-buttons">
+            <button 
+              (click)="selectTag(tag)" 
+              *ngFor="let tag of tags"
+              [ngClass]="{'selected': selectedTags.includes(tag)}"
+              [disabled]="loading"
+              class="filter">{{ tag.toUpperCase() }}</button>
+            <div *ngIf="!tags.length" class="skeleton skeleton-button"></div>
+          </div>
         </div>
+        <div class="searching-bar">
+          <h2>SEARCH BLOG</h2>
+          <input type="text" placeholder="Search" [(ngModel)]="searchTerm" (input)="filterBlogPosts()">
+        </div>
+      </div>
     </div>
-    <div class="posts">
-        <div class="post" 
-        *ngFor="let post of filteredPosts; let i = index" 
+    <div *ngIf="loading && blogPosts.length > 0" class="loading">
+        <app-loading></app-loading>
+    </div>
+    <div class="posts" *ngIf="!loading">
+        <div class="post"
+        *ngFor="let post of filteredPosts; let i = index"
         [ngStyle]="{'background-image': 'url(' + post.imageUrl + ')'}"
         [ngClass]="{
-            'horizontal': isHorizontalMap[post.id],
-            'vertical': !isHorizontalMap[post.id],
-            'black': contrastColorMap[post.id] === 'black',
-            'white': contrastColorMap[post.id] === 'white',
-            'latest': post === latestPost
-          }"
-          (click)="goToPost(post.id)">
+          'horizontal': isHorizontalMap[post.id],
+          'vertical': !isHorizontalMap[post.id],
+          'black': contrastColorMap[post.id] === 'black',
+          'white': contrastColorMap[post.id] === 'white',
+          'latest': post === latestPost
+        }"
+        (click)="goToPost(post.id)">
             <div class="post-container" >
                 <div class="post-latest" *ngIf="post === latestPost">
                     <div class="latest-text">Latest</div>
@@ -38,15 +43,16 @@
                     <h3 [innerHTML]="post.title"></h3>
                 </div>
                 <div class="post-body">
-                    <div class="description" [innerHTML]="stylesHtml(post.description)"></div>
+                    <div class="description" [innerHTML]="post.description"></div>
                 </div>
                 <div class="post-footer">
                     <div class="tags" *ngIf="post.tags.length > 0">
-                        <button *ngFor="let tag of post.tags" class="tag">{{ tag }}</button>
+                        <button *ngFor="let tag of post.tags" class="tag">{{ tag.toUpperCase() }}</button>
                     </div>
                     <div class="info">{{ formatDate(post.created) }} - {{ post.minutesToRead }} min read</div>
                 </div>
             </div>
         </div>
     </div>
-</div>
+  </div>
+  

@@ -223,6 +223,7 @@ a{
     height: auto;
     object-fit: cover;
     cursor: pointer;
+    max-height: 30vh;
 }
 
 

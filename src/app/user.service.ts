@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { PostResponse, ProjectResponse, TrajectoryResponse } from '../interfaces/interfaces';
 import { Observable, map, catchError, of } from 'rxjs';
+import { config } from './shared/config';
 
 @Injectable({
   providedIn: 'root'
@@ -10,8 +11,10 @@ export class UserService {
 
   constructor(private http: HttpClient) { }
 
+  private API_URL = config.API_URL();
+
   getPosts(): Observable<PostResponse[] | undefined> {
-    return this.http.get<PostResponse[]>('http://localhost:8080/blog').pipe(
+    return this.http.get<PostResponse[]>(`${this.API_URL}/blog`).pipe(
       map((response: PostResponse[]) => {
         return response;
       }),
@@ -23,7 +26,7 @@ export class UserService {
   }
 
   getPost(id: string): Observable<PostResponse | undefined> {
-    return this.http.get<PostResponse>(`http://localhost:8080/blog/${id}`).pipe(
+    return this.http.get<PostResponse>(`${this.API_URL}/blog/${id}`).pipe(
       map((response: PostResponse) => {
         return response;
       }),
@@ -35,7 +38,7 @@ export class UserService {
   }
 
   getLatestPost(): Observable<PostResponse | undefined> {
-    return this.http.get<PostResponse[]>('http://localhost:8080/blog').pipe(
+    return this.http.get<PostResponse[]>(`${this.API_URL}/blog`).pipe(
       map((response: PostResponse[]) => {
         return response.reduce((prev, current) => (prev.created > current.created) ? prev : current);
       }),
@@ -47,7 +50,7 @@ export class UserService {
   }
 
   getProject(id: string): Observable<ProjectResponse | undefined> {
-    return this.http.get<ProjectResponse>(`http://localhost:8080/project/${id}`).pipe(
+    return this.http.get<ProjectResponse>(`${this.API_URL}/project/${id}`).pipe(
       map((response: ProjectResponse) => {
         return response;
       }),
@@ -59,7 +62,7 @@ export class UserService {
   }
 
   getProjects(): Observable<ProjectResponse[] | undefined> {
-    return this.http.get<ProjectResponse[]>('http://localhost:8080/project').pipe(
+    return this.http.get<ProjectResponse[]>(`${this.API_URL}/project`).pipe(
       map((response: ProjectResponse[]) => {
         return response;
       }),
@@ -71,7 +74,7 @@ export class UserService {
   }
 
   getTrajectory(): Observable<TrajectoryResponse | undefined> {
-    return this.http.get<TrajectoryResponse>('http://localhost:8080/trajectory').pipe(
+    return this.http.get<TrajectoryResponse>(`${this.API_URL}/trajectory`).pipe(
       map((response: TrajectoryResponse) => {
         return response;
       }),
@@ -83,7 +86,7 @@ export class UserService {
   }
 
   subscribeToNewsletter(email: string): Observable<boolean> {
-    return this.http.post<any>('http://localhost:8080/subscribe', email).pipe(
+    return this.http.post<any>(`${this.API_URL}/subscribe`, email).pipe(
       map(() => {
         return true;
       }),
@@ -94,7 +97,7 @@ export class UserService {
   }
 
   sendContactMail(from: string, subject: string, text: string, name: string): Observable<boolean> {
-    return this.http.post<any>('http://localhost:8080/sendMail', { from, subject, text, name }).pipe(
+    return this.http.post<any>(`${this.API_URL}/sendMail`, { from, subject, text, name }).pipe(
       map(() => {
         return true;
       }),

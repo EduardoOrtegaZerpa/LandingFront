@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { CardComponent } from '../card/card.component';
-import { PostResponse } from '../../interfaces/interfaces';
+import { PostResponse, ProjectResponse } from '../../interfaces/interfaces';
 import { UserService } from '../user.service';
 import { DatePipe } from '@angular/common';
 import { MouseDetectionService } from '../mouse-detection.service';
@@ -21,6 +21,7 @@ export class HomeComponent implements OnInit {
 
   post: PostResponse | undefined;
   hasMouse: boolean = false;
+  projects: ProjectResponse[] = [];
 
 
   constructor(
@@ -36,6 +37,7 @@ export class HomeComponent implements OnInit {
 
     this.userService.getProjects().subscribe((projects) => {
       if (projects) {
+        this.projects = projects;
         const sliderImages: SliderImage[] = projects.map((project) => ({ id: project.id, title: project.title, imageUrl: project.imageUrl }));
         this.sliderService.setImages(sliderImages);
       }

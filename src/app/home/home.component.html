@@ -17,10 +17,10 @@
                 </a>
             </div>
         </div>
-        <div class="slider">
+        <div class="slider" *ngIf="projects.length > 0">
             <app-slider></app-slider>
         </div>
-        <div class="image-general">
+        <div class="image-general" [ngStyle]="{ 'flex': projects.length === 0 ? '2' : 'initial' }">
             <img src="/assets/img/home-silueta.png">
         </div>
     </div>

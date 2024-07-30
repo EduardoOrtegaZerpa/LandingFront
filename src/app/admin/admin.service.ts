@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Post, PostResponse, Project, ProjectResponse, Trajectory, TrajectoryResponse } from '../../interfaces/interfaces';
 import { Observable, catchError, map, of } from 'rxjs';
 import { NotificationService } from '../notification/notification.service';
+import { config } from '../shared/config';
 
 @Injectable({
   providedIn: 'root'
@@ -13,6 +14,8 @@ export class AdminService {
     private http: HttpClient,
     private notificationService: NotificationService
   ) {}
+
+  private API_URL = config.API_URL();
 
   createPost(post: Post): Observable<PostResponse | undefined> {
 
@@ -25,7 +28,7 @@ export class AdminService {
       formData.append('image', post.image, post.image.name);
     }
 
-    return this.http.post<PostResponse>('http://localhost:8080/blog', formData).pipe(
+    return this.http.post<PostResponse>(`${this.API_URL}/blog`, formData).pipe(
       map((response: PostResponse) => {
         this.notificationService.show('Post created', false);
         return response;
@@ -50,7 +53,7 @@ export class AdminService {
         formData.append('image', '');
       }
   
-      return this.http.post<ProjectResponse>('http://localhost:8080/project', formData).pipe(
+      return this.http.post<ProjectResponse>(`${this.API_URL}/project`, formData).pipe(
         map((response: ProjectResponse) => {
           this.notificationService.show('Project created', false);
           return response;
@@ -73,7 +76,7 @@ export class AdminService {
         formData.append('image', post.image, post.image.name);
       }
   
-      return this.http.put<any>(`http://localhost:8080/blog/${id}`, formData).pipe(
+      return this.http.put<any>(`${this.API_URL}/blog/${id}`, formData).pipe(
         map((response: any) => {
           this.notificationService.show('Post edited', false);
           return response;
@@ -95,7 +98,7 @@ export class AdminService {
         formData.append('image', project.image, project.image.name);
       }
   
-      return this.http.put<any>(`http://localhost:8080/project/${id}`, formData).pipe(
+      return this.http.put<any>(`${this.API_URL}/project/${id}`, formData).pipe(
         map((response: any) => {
           this.notificationService.show('Project edited', false);
           return response;
@@ -110,7 +113,7 @@ export class AdminService {
     editTrajectory(Trajectory: Trajectory, id: number): Observable<TrajectoryResponse | undefined> {
       const formData = new FormData();
       formData.append('content', Trajectory.content);
-      return this.http.put<any>(`http://localhost:8080/trajectory/${id}`, formData).pipe(
+      return this.http.put<any>(`${this.API_URL}/trajectory/${id}`, formData).pipe(
         map((response: any) => {
           this.notificationService.show('Trajectory edited', false);
           return response.trajectory as TrajectoryResponse;

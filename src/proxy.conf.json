@@ -1,0 +1,9 @@
+{
+    "/api": {
+      "target": "https://eduortza.com:8443",
+      "secure": false,
+      "pathRewrite": {
+              "^/api": ""
+          }
+    }
+  }

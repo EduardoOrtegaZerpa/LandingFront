@@ -15,6 +15,7 @@ import { EditProjectComponent } from './admin/edit-project/edit-project.componen
 import { PostComponent } from './post/post.component';
 import { ProjectComponent } from './project/project.component';
 import { EditTrajectoryComponent } from './admin/edit-trajectory/edit-trajectory.component';
+import { UnsubscribeComponent } from './unsubscribe/unsubscribe.component';
 
 export const routes: Routes = [
     {path: '', redirectTo: '/home', pathMatch: 'full'},
@@ -25,6 +26,7 @@ export const routes: Routes = [
     {path: 'blog/:id', component: PostComponent},
     {path: 'trajectory', component: TrajectoryComponent},
     {path: 'contact', component: ContactComponent},
+    {path: 'unsubscribe', component: UnsubscribeComponent},
     {path: 'login', component: LoginComponent},
     {path: 'notAvailable', component: NotAvailablePageComponent},
     {path: 'admin', component: AdminComponent, canActivate: [adminGuard], children: [

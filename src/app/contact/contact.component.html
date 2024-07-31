@@ -3,43 +3,43 @@
         <div class="option">
 
             <div class="general-info">
-                <h1>¡Pongámonos en contacto!</h1>
-                <h2>Contacta conmigo a través de correo</h2>
+                <h1>Let's Get in Touch!</h1>
+                <h2>Contact me via email</h2>
             </div>
 
             <form [formGroup]="contactForm" (ngSubmit)="sendMail()" class="inputs">
                 <div class="input">
-                    <label for="name">Nombre</label>
-                    <input type="text" id="name" formControlName="name" placeholder="Introduzca su nombre...">
+                    <label for="name">Name</label>
+                    <input type="text" id="name" formControlName="name" placeholder="Enter your name...">
                     <div *ngIf="contactForm.get('name')?.invalid && (contactForm.get('name')?.dirty || contactForm.get('name')?.touched)" class="error">
-                        <div *ngIf="contactForm.get('name')?.errors?.['required']">El nombre es requerido.</div>
-                        <div *ngIf="contactForm.get('name')?.errors?.['minlength']">El nombre debe tener al menos 2 caracteres.</div>
+                        <div *ngIf="contactForm.get('name')?.errors?.['required']">Name is required.</div>
+                        <div *ngIf="contactForm.get('name')?.errors?.['minlength']">Name must be at least 2 characters long.</div>
                     </div>
                 </div>
                 <div class="input">
-                    <label for="email">Correo</label>
-                    <input type="email" id="email" formControlName="email" placeholder="Introduzca su correo...">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" formControlName="email" placeholder="Enter your email...">
                     <div *ngIf="contactForm.get('email')?.invalid && (contactForm.get('email')?.dirty || contactForm.get('email')?.touched)" class="error">
-                        <div *ngIf="contactForm.get('email')?.errors?.['required']">El correo es requerido.</div>
-                        <div *ngIf="contactForm.get('email')?.errors?.['email']">Formato de correo inválido.</div>
+                        <div *ngIf="contactForm.get('email')?.errors?.['required']">Email is required.</div>
+                        <div *ngIf="contactForm.get('email')?.errors?.['email']">Invalid email format.</div>
                     </div>
                 </div>
                 <div class="input">
                     <label for="subject">Subject</label>
-                    <input type="text" id="subject" formControlName="subject" placeholder="Introduzca un asunto...">
+                    <input type="text" id="subject" formControlName="subject" placeholder="Enter a subject...">
                     <div *ngIf="contactForm.get('subject')?.invalid && (contactForm.get('subject')?.dirty || contactForm.get('subject')?.touched)" class="error">
-                        <div *ngIf="contactForm.get('message')?.errors?.['required']">El asunto es requerido.</div>
+                        <div *ngIf="contactForm.get('subject')?.errors?.['required']">Subject is required.</div>
                     </div>
                 </div>
                 <div class="input">
-                    <label for="message">Mensaje</label>
-                    <textarea id="message" formControlName="message" placeholder="Dime que tienes en mente..."></textarea>
+                    <label for="message">Message</label>
+                    <textarea id="message" formControlName="message" placeholder="Tell me what's on your mind..."></textarea>
                     <div *ngIf="contactForm.get('message')?.invalid && (contactForm.get('message')?.dirty || contactForm.get('message')?.touched)" class="error">
-                        <div *ngIf="contactForm.get('message')?.errors?.['required']">El mensaje es requerido.</div>
-                        <div *ngIf="contactForm.get('message')?.errors?.['minlength']">El mensaje debe tener al menos 10 caracteres.</div>
+                        <div *ngIf="contactForm.get('message')?.errors?.['required']">Message is required.</div>
+                        <div *ngIf="contactForm.get('message')?.errors?.['minlength']">Message must be at least 10 characters long.</div>
                     </div>
                 </div>
-                <button type="submit" [disabled]="contactForm.invalid">Enviar</button>
+                <button type="submit" [disabled]="contactForm.invalid">Send</button>
             </form>
 
         </div>
@@ -47,7 +47,7 @@
             <span>or</span>
         </div>          
         <div class="option">
-            <h3><b>Escríbeme directamente a la dirección:</b> eduardo&#64;eduortza.com</h3>
+            <h3><b>Write to me directly at:</b> eduardo&#64;eduortza.com</h3>
         </div>
     </div>
     <div class="image">

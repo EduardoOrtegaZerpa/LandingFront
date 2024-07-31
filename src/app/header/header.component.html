@@ -1,10 +1,10 @@
 <header>
   <nav>
     <ul>
-      <li><a routerLink="/home" routerLinkActive="active">Inicio</a></li>
-      <li><a routerLink="/projects" routerLinkActive="active">Portafolio</a></li>
+      <li><a routerLink="/home" routerLinkActive="active">Home</a></li>
+      <li><a routerLink="/projects" routerLinkActive="active">Portfolio</a></li>
       <li><a routerLink="/blog" routerLinkActive="active">Blog</a></li>
-      <li><a routerLink="/trajectory" routerLinkActive="active">Recorrido</a></li>
+      <li><a routerLink="/trajectory" routerLinkActive="active">Trajectory</a></li>
       <li *ngIf="loggedIn"><a routerLink="/admin" routerLinkActive="active">Admin</a></li>
     </ul>
     <div class="hamburger" (click)="toggleMenu()">
@@ -15,9 +15,9 @@
   </nav>
 </header>
 <div class="mobile-menu" [ngClass]="{'active': isMenuOpen}">
-  <a routerLink="/home" routerLinkActive="active" (click)="toggleMenu()">Inicio</a>
-  <a routerLink="/projects" routerLinkActive="active" (click)="toggleMenu()">Portafolio</a>
+  <a routerLink="/home" routerLinkActive="active" (click)="toggleMenu()">Home</a>
+  <a routerLink="/projects" routerLinkActive="active" (click)="toggleMenu()">Portfolio</a>
   <a routerLink="/blog" routerLinkActive="active" (click)="toggleMenu()">Blog</a>
-  <a routerLink="/trajectory" routerLinkActive="active" (click)="toggleMenu()">Recorrido</a>
+  <a routerLink="/trajectory" routerLinkActive="active" (click)="toggleMenu()">Trajectory</a>
   <a *ngIf="loggedIn" routerLink="/admin" routerLinkActive="active" (click)="toggleMenu()">Admin</a>
 </div>

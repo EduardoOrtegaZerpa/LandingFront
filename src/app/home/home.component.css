@@ -248,13 +248,13 @@ a{
     align-items: center;
 }
 
-.hightlight{
+.highlight{
     background-color: #A1FF99;
     padding: 10px;
     height: fit-content;
 }
 
-.hightlight p{
+.highlight p{
     color: #053b00;
     font-size: large;
 }
@@ -360,7 +360,7 @@ a{
         font-size: medium;
     }
 
-    .hightlight p{
+    .highlight p{
         font-size: medium;
     }
 
@@ -447,7 +447,7 @@ a{
         font-size: medium;
     }
 
-    .hightlight {
+    .highlight {
         display: none;
     }
 

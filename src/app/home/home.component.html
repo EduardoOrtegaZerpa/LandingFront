@@ -2,13 +2,13 @@
     <div class="main">
         <div class="info">
             <div class="text">
-                <h1>Haciendo de la <b><i>visión</i></b> una <b><i>realidad</i></b> digital</h1>
-                <p>Desde aplicaciones web intuitivas hasta soluciones de software a medida, 
-                    soy capaz de convertir las ideas en productos funcionales y exitosos.
+                <h1>Turning <b><i>vision</i></b> into <b><i>digital reality</i></b></h1>
+                <p>From intuitive web applications to custom software solutions, 
+                    I am capable of transforming ideas into functional and successful products.
                 </p>
             </div>
             <div class="buttons">
-                <button class="contact-button" (click)="goToContact()">Contáctame</button>
+                <button class="contact-button" (click)="goToContact()">Contact Me</button>
                 <a href="https://www.linkedin.com/in/eduortza" target="_blank" class="boton-social">
                     <i class="fab fa-linkedin"></i> LinkedIn
                 </a>
@@ -28,20 +28,20 @@
         <div class="about-main">
             <div class="info"> 
                 <div class="text">
-                    <h1><b><i>Sobre mí</i></b></h1>
-                    <p>¡Hola! Soy Eduardo Ortega Zerpa, ingeniero informático con experiencia en gestión de bases de datos, 
-                        administración de sistemas y redes, y producción de software, especialmente en programación web. 
-                        Con pasión por la tecnología y un enfoque meticuloso, soy capaz de llevar los proyectos al siguiente nivel.
+                    <h1><b><i>About Me</i></b></h1>
+                    <p>Hello! I am Eduardo Ortega Zerpa, a computer engineer with experience in database management, 
+                        systems and network administration, and software production, especially in web programming. 
+                        With a passion for technology and a meticulous approach, I am capable of taking projects to the next level.
                     </p>
                 </div>
             </div>
         </div>
 
         <div class="cards">
-            <app-card iconClass="fab fa-python" title="Python" description="Desarrollo de algoritmos basados en árboles a través de técnicas como backtracking, branch & bound."></app-card>
-            <app-card iconClass="fab fa-java" title="Java" description="Construcción de estructuras de datos y software orientado a empresas."></app-card>
-            <app-card iconClass="fab fa-js" title="JavaScript" description="Desarrollo de páginas web en AngularJS y React."></app-card>
-            <app-card iconClass="fas fa-database" title="SQL" description="Conocimientos avanzados en gestión de bases de datos y manejo de API."></app-card>
+            <app-card iconClass="fab fa-python" title="Python" description="Development of tree-based algorithms using techniques like backtracking, branch & bound."></app-card>
+            <app-card iconClass="fab fa-java" title="Java" description="Construction of data structures and clean architecture design."></app-card>
+            <app-card iconClass="fab fa-js" title="JavaScript" description="Development of web pages in AngularJS and React."></app-card>
+            <app-card iconClass="fas fa-database" title="SQL" description="Advanced knowledge in database management and API handling."></app-card>
         </div>
 
     </div>
@@ -58,7 +58,7 @@
         </div>
     </div>        
     <div class="blog" *ngIf="post" (click)="goToPost(post.id)">
-        <h2>Último Post</h2>
+        <h2>Latest Post</h2>
         <div class="blog-info">
             <div class="blog-image">
                 <img [src]="post.imageUrl" alt="Blog image">
@@ -68,15 +68,15 @@
                     <div class="tags">
                         <p *ngFor="let tag of post.tags">#{{ tag.toLowerCase() }}</p>
                     </div>
-                    <div class="hightlight">
-                        <p>Destacado</p>
+                    <div class="highlight">
+                        <p>Featured</p>
                     </div>
                 </div>
                 <div class="blog-title">
                     <h3>{{post.title}}</h3>
                 </div>
                 <div class="blog-basic-info">
-                    <p>{{ post.created | date:'MMM, dd - yyyy' }} • {{post.minutesToRead}} min de lectura</p>
+                    <p>{{ post.created | date:'MMM, dd - yyyy' }} • {{post.minutesToRead}} min read</p>
                 </div>
                 <div class="blog-description">
                     <p>{{ post.description }}</p>

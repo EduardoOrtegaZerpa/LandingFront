@@ -50,18 +50,19 @@ export class HomeComponent implements OnInit {
 
   personalInfos = [
     {
-      title: 'Estudios Universitarios',
-      content: 'Graduado en Ingeniería Informática en la Universidad de Las Palmas de Gran Canaria.'
+      title: 'University Studies',
+      content: 'Graduated in Computer Science Engineering from the University of Las Palmas de Gran Canaria.'
     },
     {
-      title: 'Recorrido',
-      content: 'Con más de 5 años involucrado en el mundo de la programación, he tenido la capacidad de explorar una amplia gama de entornos, desde el dinámico desarrollo web y la creación de software, hasta la intrincada ingeniería de sistemas en Linux y el desafiante lenguaje C. A lo largo de mi trayectoria he mostrado una pasión por la excelencia tanto en los aspectos más visibles como en los más profundos de la programación.'
+      title: 'Trajectory',
+      content: 'With over 5 years involved in the programming world, I have had the opportunity to explore a wide range of environments, from dynamic web development and software creation to intricate system engineering in Linux and the challenging C language. Throughout my career, I have shown a passion for excellence in both the most visible and the deeper aspects of programming.'
     },
     {
-      title: 'Cualidades',
-      content: 'Con capacidad de liderazgo y organización, además de ser comprometido con el éxito del equipo. Mi habilidad para comunicarme eficazmente y trabajar en armonía con otros asegura que alcancemos nuestras metas de manera efectiva y eficiente.'
+      title: 'Qualities',
+      content: 'With leadership and organizational skills, as well as a commitment to team success. My ability to communicate effectively and work harmoniously with others ensures that we achieve our goals effectively and efficiently.'
     }
   ];
+  
 
   activeIndex = 4;
   interval: any;

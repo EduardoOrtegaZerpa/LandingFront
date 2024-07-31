@@ -2,7 +2,7 @@
     <div class="main">
       <h1>BLOG</h1>
       <div class="utilities">
-        <div class="filters">
+        <div class="filters" *ngIf="tags.length > 0">
           <h2>FILTERS</h2>
           <div class="filters-buttons">
             <button 
@@ -11,12 +11,11 @@
               [ngClass]="{'selected': selectedTags.includes(tag)}"
               [disabled]="loading"
               class="filter">{{ tag.toUpperCase() }}</button>
-            <div *ngIf="!tags.length" class="skeleton skeleton-button"></div>
           </div>
         </div>
         <div class="searching-bar">
           <h2>SEARCH BLOG</h2>
-          <input type="text" placeholder="Search" [(ngModel)]="searchTerm" (input)="filterBlogPosts()">
+          <input type="text" placeholder="Search..." [(ngModel)]="searchTerm" (input)="filterBlogPosts()">
         </div>
       </div>
     </div>

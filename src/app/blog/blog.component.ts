@@ -119,7 +119,7 @@ export class BlogComponent implements OnInit {
     const averageLuminance = luminanceSum / (data.length / 4);
     const contrastColor = averageLuminance < 127.5 ? 'black' : 'white';
     
-    const isHorizontal = img.width > img.height;
+    const isHorizontal = img.width / img.height > 1.2;
     
     return { isHorizontal, contrastColor };
   }

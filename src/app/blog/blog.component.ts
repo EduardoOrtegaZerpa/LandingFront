@@ -43,9 +43,15 @@ export class BlogComponent implements OnInit {
         this.getTags();
   
         const promises = posts.map(async (post) => {
-          const { isHorizontal, contrastColor } = await this.processImage(post.imageUrl);
-          this.isHorizontalMap[post.id] = isHorizontal;
-          this.contrastColorMap[post.id] = contrastColor;
+          try {
+            const { isHorizontal, contrastColor } = await this.processImage(post.imageUrl);
+            this.isHorizontalMap[post.id] = isHorizontal;
+            this.contrastColorMap[post.id] = contrastColor;
+          } catch (error) {
+            console.error(`Error processing image for post ${post.id}:`, error);
+            this.isHorizontalMap[post.id] = false;
+            this.contrastColorMap[post.id] = 'white';
+          }
         });
   
         await Promise.all(promises);
@@ -53,6 +59,7 @@ export class BlogComponent implements OnInit {
         this.blogPosts = this.orderedPostsByImageOrientation();
         this.getLatest();
         this.filteredPosts = this.blogPosts;
+        console.log('Blog posts:', this.blogPosts);
       }
     } catch (error) {
       console.error('Error fetching blog posts:', error);
@@ -60,7 +67,6 @@ export class BlogComponent implements OnInit {
       this.loading = false;
     }
   }
-
 
   getLatest() {
     this.latestPost = this.blogPosts.find((post: PostResponse) => post.created === this.blogPosts.reduce((a, b) => a.created > b.created ? a : b).created);
@@ -76,13 +82,13 @@ export class BlogComponent implements OnInit {
   }
 
   async getImageData(imageUrl: string): Promise<HTMLImageElement> {
-      const img = new Image();
-      img.crossOrigin = 'Anonymous'; // Maneja CORS
-      return new Promise<HTMLImageElement>((resolve, reject) => {
-        img.onload = () => resolve(img);
-        img.onerror = (error) => reject('Error loading image');
-        img.src = imageUrl;
-      });
+    const img = new Image();
+    img.crossOrigin = 'Anonymous';
+    return new Promise<HTMLImageElement>((resolve, reject) => {
+      img.onload = () => resolve(img);
+      img.onerror = () => reject('Error loading image');
+      img.src = imageUrl;
+    });
   }
 
   async processImage(imageUrl: string): Promise<{ isHorizontal: boolean; contrastColor: string }> {
@@ -96,7 +102,6 @@ export class BlogComponent implements OnInit {
     if (!ctx) {
       throw new Error('Cannot get canvas context');
     }
-    
     ctx.drawImage(img, 0, 0);
     const imageData = ctx.getImageData(0, 0, img.width, img.height);
     const data = imageData.data;

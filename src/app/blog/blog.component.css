@@ -117,7 +117,7 @@ h3 {
     min-height: 35vh;
     justify-content: flex-end;
     cursor: pointer;
-    background-color: #fafafa;
+    background-color: rgba(0, 0, 0, 0.6);
 }
 
 .post:hover {
@@ -229,11 +229,6 @@ h3 {
 }
 
 @media screen and (max-width: 1600px) {
-
-    .vertical {
-        max-width:none;
-
-    }
 
     .horizontal {
         min-width: fit-content;

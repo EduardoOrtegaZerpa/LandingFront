@@ -15,6 +15,7 @@ export class PortfolioCardComponent implements OnInit{
 
   @Input() project: ProjectResponse | undefined;
   formattedDate: string = '';
+  imageLoaded: boolean = false;
 
   constructor() {}
 
@@ -22,6 +23,14 @@ export class PortfolioCardComponent implements OnInit{
     if (this.project) {
       this.formattedDate = format(parseISO(this.project.created), 'MMM dd, yyyy');
     }
+  }
+
+  onImageLoad() {
+    this.imageLoaded = true;
+  }
+
+  onImageError() {
+    this.imageLoaded = false;
   }
 
 }

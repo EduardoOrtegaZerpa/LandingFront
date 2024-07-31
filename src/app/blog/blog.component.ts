@@ -59,7 +59,6 @@ export class BlogComponent implements OnInit {
         this.blogPosts = this.orderedPostsByImageOrientation();
         this.getLatest();
         this.filteredPosts = this.blogPosts;
-        console.log('Blog posts:', this.blogPosts);
       }
     } catch (error) {
       console.error('Error fetching blog posts:', error);

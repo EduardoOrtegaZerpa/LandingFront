@@ -1,10 +1,14 @@
 <div class="card">
     <div class="card-image">
-        <img [src]="project?.imageUrl" alt="" class="image">
+      <img [src]="project?.imageUrl" alt="Imagen del proyecto" class="image"
+           (load)="onImageLoad()" 
+           (error)="onImageError()">
+      <div *ngIf="!imageLoaded" class="notLoaded"></div>
     </div>
     <div class="card-content">
-        <h2><b>{{project?.title}}</b></h2>
-        <h3>{{formattedDate}}</h3>
-        <p>{{project?.description}}</p>
+      <h2><b>{{project?.title}}</b></h2>
+      <h3>{{formattedDate}}</h3>
+      <p>{{project?.description}}</p>
     </div>
-</div>
+  </div>
+  

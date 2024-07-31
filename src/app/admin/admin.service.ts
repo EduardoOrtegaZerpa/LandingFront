@@ -125,5 +125,30 @@ export class AdminService {
       );
     }
 
+    deletePost(id: number): Observable<boolean> {
+      return this.http.delete<any>(`${this.API_URL}/blog/${id}`).pipe(
+        map((response: any) => {
+          this.notificationService.show('Post deleted', false);
+          return true;
+        }),
+        catchError((error) => {
+          this.notificationService.show('Error deleting post', true);
+          return of(false);
+        })
+      );
+    }
+
+    deleteProject(id: number): Observable<boolean> {
+      return this.http.delete<any>(`${this.API_URL}/project/${id}`).pipe(
+        map((response: any) => {
+          this.notificationService.show('Project deleted', false);
+          return true;
+        }),
+        catchError((error) => {
+          this.notificationService.show('Error deleting project', true);
+          return of(false);
+        })
+      );
+    }
 
 }

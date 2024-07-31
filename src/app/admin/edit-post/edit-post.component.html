@@ -80,6 +80,7 @@
             </div>
 
             <button type="submit" [disabled]="createForm.invalid || !compareChanges()">Submit</button>
+            <button type="button" (click)="deletePost()">Delete</button>
         </div>
     </form>
 </div>

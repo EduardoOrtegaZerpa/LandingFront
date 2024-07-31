@@ -119,7 +119,7 @@ export class EditProjectComponent implements AfterViewInit{
     this.createForm.patchValue({ content });
   }
 
-  editProject() {
+  async editProject() {
 
     const hasItChanged = this.compareChanges();
 
@@ -147,14 +147,25 @@ export class EditProjectComponent implements AfterViewInit{
 
     this.adminService.editProject(project, id).subscribe(async (response) => {
       if (response) {
-        this.imageSelected = undefined;
-        this.errorMessage = null;
-        this.selectedProject = undefined;
+        this.restartValues();
         await this.initProjects();
       } else {
         console.error('Error creating post');
       }
     });
+  }
+
+  async deleteProject() {
+    if (this.selectedProject) {
+      this.adminService.deleteProject(this.selectedProject.id).subscribe(async (response) => {
+        if (response) {
+          this.restartValues();
+          await this.initProjects();
+        } else {
+          console.error('Error deleting project');
+        }
+      });
+    }
   }
 
   async getProjects(): Promise<void> {
@@ -168,6 +179,12 @@ export class EditProjectComponent implements AfterViewInit{
     } catch (error) {
       console.error('Error getting posts', error);
     }
+  }
+
+  restartValues() {
+    this.imageSelected = undefined;
+    this.errorMessage = null;
+    this.selectedProject = undefined;
   }
 
   compareChanges(): Boolean {

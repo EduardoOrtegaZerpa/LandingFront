@@ -140,7 +140,7 @@ export class EditPostComponent implements AfterViewInit {
     this.createForm.patchValue({ content });
   }
 
-  editPost() {
+  async editPost() {
 
     const hasItChanged = this.compareChanges();
 
@@ -168,16 +168,26 @@ export class EditPostComponent implements AfterViewInit {
 
     this.adminService.editPost(post, id).subscribe(async (response) => {
       if (response) {
-        this.tags = [];
-        this.originalTags = [];
-        this.imageSelected = undefined;
-        this.errorMessage = null;
-        this.selectedPost = undefined;
+        this.restartValues();
         await this.initPosts();
       } else {
         console.error('Error creating post');
       }
     });
+  }
+
+  async deletePost() {
+    if (this.selectedPost) {
+      const id = this.selectedPost.id;
+      this.adminService.deletePost(id).subscribe(async (response) => {
+        if (response) {
+          this.restartValues();
+          await this.initPosts();
+        } else {
+          console.error('Error deleting post');
+        }
+      });
+    }
   }
 
   async getPosts(): Promise<void> {
@@ -193,6 +203,15 @@ export class EditPostComponent implements AfterViewInit {
       console.error('Error getting posts', error);
     }
   }
+
+  restartValues() {
+    this.tags = [];
+    this.originalTags = [];
+    this.imageSelected = undefined;
+    this.errorMessage = null;
+    this.selectedPost = undefined;
+  }
+
 
   compareChanges(): Boolean {
 

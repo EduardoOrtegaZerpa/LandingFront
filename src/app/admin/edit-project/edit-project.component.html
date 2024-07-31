@@ -67,6 +67,7 @@
             </div>
 
             <button type="submit" [disabled]="createForm.invalid || !compareChanges()">Submit</button>
+            <button type="button" (click)="deleteProject()">Delete</button>
         </div>
     </form>
 </div>

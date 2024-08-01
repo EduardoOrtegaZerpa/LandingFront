@@ -39,7 +39,12 @@ export class BlogComponent implements OnInit {
     try {
       const posts = await this.userService.getPosts().toPromise();
       if (posts) {
+
         this.blogPosts = posts;
+        if (this.blogPosts.length === 0) {
+          this.router.navigate(['/notAvailable']);
+        }
+
         this.getTags();
   
         const promises = posts.map(async (post) => {

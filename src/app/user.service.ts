@@ -40,6 +40,9 @@ export class UserService {
   getLatestPost(): Observable<PostResponse | undefined> {
     return this.http.get<PostResponse[]>(`${this.API_URL}/blog`).pipe(
       map((response: PostResponse[]) => {
+        if (response.length === 0) {
+          return undefined;
+        }
         return response.reduce((prev, current) => (prev.created > current.created) ? prev : current);
       }),
       catchError((error) => {

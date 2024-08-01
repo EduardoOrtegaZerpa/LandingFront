@@ -28,6 +28,9 @@ export class PortafolioComponent implements OnInit{
 
   async ngOnInit(): Promise<void> {
     await this.getProjects();
+    if (this.projects.length === 0) {
+      this.router.navigate(['/notAvailable']);
+    }
     this.filteredProjects = [...this.projects];
   }
 

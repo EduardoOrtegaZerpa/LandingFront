@@ -48,43 +48,46 @@ export class PostComponent {
         .post-content h1 {
           font-size: 2.5rem;
           margin-top: 1rem;
-          margin-bottom: 1rem;
           word-break: break-word;
         }
         .post-content h2 {
           font-size: 2.2rem;
-          margin-top: 1rem;
-          margin-bottom: 1rem;
+          margin-top: 0.8rem;
           word-break: break-word;
         }
         .post-content h3 {
-          margin-bottom: 1.8rem;
-          margin-top: 1rem;
+          margin-top: 0.8rem;
           font-size: 1.5rem;
           word-break: break-word;  
         }
         .post-content h4 {
-          margin-bottom: 1.6rem;
-          margin-top: 1rem;
+          margin-top: 0.5rem;
           font-size: 1.2rem;
           word-break: break-word;
         }
         .post-content ul, .post-content ol {
-          margin-bottom: 1rem;
-          margin-top: 1rem;
+          display: flex;
+          flex-direction: column;
+          gap: 0.5rem;
           margin-left: 1.4rem;
           list-style: circle;
+          margin-top: 0.5rem;
         }
         .post-content li {
-          margin-bottom: 0.5rem;
           font-size: 1.4rem;
           list-style-type: decimal;
           word-break: break-word;
         }
         .post-content p {
+          margin-top: 0.5rem;
           font-size: 1.4rem;
           word-break: break-word;
         }
+        .post a {
+          color: #007bff;
+          text-decoration: none;
+        }
+
 
         @media (max-width: 900px) {
           .post-content h1 {

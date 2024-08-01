@@ -78,6 +78,11 @@ export class TrajectoryComponent implements OnInit {
           font-size: 1.4rem;
           word-break: break-word;
         }
+        .trajectory a {
+          color: #007bff;
+          text-decoration: none;
+        }
+
 
         @media (max-width: 900px) {
           .trajectory-content h1 {

@@ -83,6 +83,11 @@ export class PostComponent {
           font-size: 1.4rem;
           word-break: break-word;
         }
+        .post a {
+          color: #007bff;
+          text-decoration: none;
+        }
+
 
         @media (max-width: 900px) {
           .post-content h1 {

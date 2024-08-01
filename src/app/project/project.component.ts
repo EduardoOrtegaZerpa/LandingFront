@@ -80,6 +80,10 @@ export class ProjectComponent implements OnInit {
           font-size: 1.4rem;
           word-break: break-word;
         }
+        .project a {
+          color: #007bff;
+          text-decoration: none;
+        }
 
         @media (max-width: 900px) {
           .project-content h1 {

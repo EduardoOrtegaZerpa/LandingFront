@@ -14,6 +14,7 @@
     flex: 1;
     background-color: rgba(0, 0, 0, 0.3);
     padding: 20px;
+    gap: 20px;
 }
 
 .not-available h1 {
@@ -28,12 +29,10 @@
   
   .not-available p {
     font-size: 1.2rem;
-    margin: 20px 0;
   }
   
   .not-available a {
     display: inline-block;
-    margin-top: 20px;
     padding: 10px 20px;
     font-size: 1rem;
     color: #ffffff;

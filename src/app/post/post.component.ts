@@ -49,25 +49,25 @@ export class PostComponent {
           font-size: 2.5rem;
           margin-top: 1rem;
           margin-bottom: 1rem;
-          word-break: break-all;
+          word-break: break-word;
         }
         .post-content h2 {
           font-size: 2.2rem;
           margin-top: 1rem;
           margin-bottom: 1rem;
-          word-break: break-all;
+          word-break: break-word;
         }
         .post-content h3 {
           margin-bottom: 1.8rem;
           margin-top: 1rem;
           font-size: 1.5rem;
-          word-break: break-all;
+          word-break: break-word;  
         }
         .post-content h4 {
           margin-bottom: 1.6rem;
           margin-top: 1rem;
           font-size: 1.2rem;
-          word-break: break-all;
+          word-break: break-word;
         }
         .post-content ul, .post-content ol {
           margin-bottom: 1rem;
@@ -79,11 +79,11 @@ export class PostComponent {
           margin-bottom: 0.5rem;
           font-size: 1.4rem;
           list-style-type: decimal;
-          word-break: break-all;
+          word-break: break-word;
         }
         .post-content p {
           font-size: 1.4rem;
-          word-break: break-all;
+          word-break: break-word;
         }
 
         @media (max-width: 900px) {
@@ -115,40 +115,18 @@ export class PostComponent {
             font-size: 1.6rem;
           }
           .post-content h3 {
-            font-size: 1.4rem;
+            font-size: 1.5rem;
           }
           .post-content h4 {
-            font-size: 1.2rem;
-          }
-          .post-content p {
-            font-size: 1rem;
-          }
-          .post-content li {
-            font-size: 1rem;
-          }
-        }
-
-        @media (max-width: 400px) {
-          .post-content h1 {
             font-size: 1.3rem;
           }
-          .post-content h2 {
+          .post-content p {
             font-size: 1.2rem;
           }
-          .post-content h3 {
-            font-size: 1.1rem;
-          }
-          .post-content h4 {
-            font-size: 1rem;
-          }
-          .post-content p {
-            font-size: 0.8rem;
-          }
           .post-content li {
-            font-size: 0.8rem;
+            font-size: 1.2rem;
           }
         }
-
 
       </style>
     `;

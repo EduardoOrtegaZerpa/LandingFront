@@ -98,6 +98,8 @@ a{
     flex: 2;
     font-size: large;
     cursor: pointer;
+    min-width: fit-content;
+    text-wrap: nowrap;
 }
 
 .contact-button:hover{

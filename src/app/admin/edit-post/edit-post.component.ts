@@ -181,7 +181,7 @@ export class EditPostComponent implements AfterViewInit {
       const id = this.selectedPost.id;
       this.adminService.deletePost(id).subscribe(async (response) => {
         if (response) {
-          this.restartValues();
+          this.restartAll();
           await this.initPosts();
         } else {
           console.error('Error deleting post');
@@ -210,6 +210,13 @@ export class EditPostComponent implements AfterViewInit {
     this.imageSelected = undefined;
     this.errorMessage = null;
     this.selectedPost = undefined;
+  }
+
+  restartAll() {
+    this.createForm.reset();
+    this.createForm.patchValue({ newTag: '' });
+    this.editor.writeValue('');
+    this.restartValues();
   }
 
 

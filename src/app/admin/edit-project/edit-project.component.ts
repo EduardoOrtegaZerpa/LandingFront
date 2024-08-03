@@ -159,7 +159,7 @@ export class EditProjectComponent implements AfterViewInit{
     if (this.selectedProject) {
       this.adminService.deleteProject(this.selectedProject.id).subscribe(async (response) => {
         if (response) {
-          this.restartValues();
+          this.restartAll();
           await this.initProjects();
         } else {
           console.error('Error deleting project');
@@ -185,6 +185,13 @@ export class EditProjectComponent implements AfterViewInit{
     this.imageSelected = undefined;
     this.errorMessage = null;
     this.selectedProject = undefined;
+  }
+
+  restartAll() {
+    this.createForm.reset();
+    this.createForm.patchValue({ newTag: '' });
+    this.editor.writeValue('');
+    this.restartValues();
   }
 
   compareChanges(): Boolean {
